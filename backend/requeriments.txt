@@ -1,0 +1,49 @@
+Passos para rodar o projeto de engenharia de software:
+
+1: instalar o yarn
+	$ Comando para iniciar o projeto: yarn init -y
+
+2: instalar o typescript
+	$ yarn add typescript -D
+
+3: intalar o express
+	$ yarn add express
+	$ instalar as "tipagens" do express
+		$ yarn add @types/express -D
+
+4: iniciar o typescipt dentro do projeto
+	$ yarn tsc --init
+
+5: biblioteca
+	$ yarn add ts-node-dev -D
+
+6: biblioteca para tratamento de erros
+	$ yarn add express-asyc-errors
+
+	* Se der erro na função de erros fazer o seguinte:
+		Faz assim no cmd:
+
+			npm uninstall @types/express
+
+			Depois vai e apaga a pasta node_modules Depois volte ao cmd e rode:
+
+			npm install
+
+			E agora no cmd ai instale:
+
+			npm install --save-dev @types/express@4.17.13
+
+7: liberar para qlq IP fazer a requisição
+	$ yarn add cors
+	$ yarn add @types/cors -D
+
+
+8: instalar o prisma
+	$ yarn add prisma
+	$ yarn add @prisma/client
+	$ npx prisma init
+
+9: comando para criar a migration e criar as tabelas. (após já ter criado e configurado o banco de dados)
+	$ yarn prisma migrate dev --name (nome da migration)
+
+
