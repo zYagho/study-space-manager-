@@ -1,10 +1,12 @@
 import { Router, Request, Response } from "express";
 
+import { UserController } from "./controllers/UserController";
+
 const router = Router();
 
-router.get('/teste',(req: Request, res:Response) =>{
-    res.json({message:'api funcionando'})
-})
+
+//Rotas User
+router.post('/users',new UserController().create)
 
 
 export {router};
