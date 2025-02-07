@@ -23,15 +23,15 @@ Passos para rodar o projeto de engenharia de software:
 	* Se der erro na função de erros fazer o seguinte:
 		Faz assim no cmd:
 
-			npm uninstall @types/express
+			$ npm uninstall @types/express
 
 			Depois vai e apaga a pasta node_modules Depois volte ao cmd e rode:
 
-			npm install
+			$ npm install
 
 			E agora no cmd ai instale:
 
-			npm install --save-dev @types/express@4.17.13
+			$ npm install --save-dev @types/express@4.17.13
 
 7: liberar para qlq IP fazer a requisição
 	$ yarn add cors
@@ -47,3 +47,6 @@ Passos para rodar o projeto de engenharia de software:
 	$ yarn prisma migrate dev --name (nome da migration)
 
 
+10: Instalando a biblioteca que servirá para criptografar a senha:
+	$ yarn add bcryptjs
+	$ yarn add @types/bcryptjs -D
