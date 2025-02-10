@@ -13,6 +13,17 @@ class UserController{
 
         return res.json(user)
     }
+
+    async detail(req: Request, res:Response){
+
+        const userId = req.user_id
+
+        const detailUser = new UserService();
+
+        const user = await detailUser.detail(userId);
+
+        res.json(user)
+    }
 }
 
 export {UserController}

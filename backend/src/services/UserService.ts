@@ -42,6 +42,21 @@ class UserService{
 
         return(user)
     }
+    async detail(userId:string){
+
+        const user = prismaClient.user.findFirst({
+            where:{
+                id:userId
+            },
+            select:{
+                id:true,
+                email:true,
+                reserves:true,
+                admin:true
+            }
+        })
+        return user;
+    }
 }
 
 export {UserService}
