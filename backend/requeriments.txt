@@ -50,3 +50,10 @@ Passos para rodar o projeto de engenharia de software:
 10: Instalando a biblioteca que servirá para criptografar a senha:
 	$ yarn add bcryptjs
 	$ yarn add @types/bcryptjs -D
+
+11: Instalando o JWT
+	$ yarn add jsonwebtoken
+	$ yarn add @types/jsonwebtoken
+
+12: Instalando o dotenv
+	$ yarn add dotenv
