@@ -8,7 +8,7 @@ class AuthUserController{
 
         const authUserService = new AuthUserService();
 
-        const auth = authUserService.authUser({email, password})
+        const auth = await authUserService.authUser({email, password})
 
         return res.json(auth)
     }
