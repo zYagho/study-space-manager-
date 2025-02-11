@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
 import { UserService } from "../services/UserService";
-import prismaClient from "../prisma";
-
 
 class UserController{
     async create(req: Request, res: Response){
@@ -33,6 +31,8 @@ class UserController{
         const userService = new UserService();
 
         const user = await userService.delete({id});
+
+        return res.json(user)
     }
 
     async detail(req: Request, res:Response){
