@@ -2,9 +2,10 @@ import prismaClient from "../prisma"
 import { hash } from "bcryptjs"
 
 interface UserRequest{
-    name:string,
-    email:string,
-    password:string
+    id?:string,
+    name?:string,
+    email?:string,
+    password?:string
 }
 
 class UserService{
@@ -42,6 +43,64 @@ class UserService{
 
         return(user)
     }
+    async update({id,name, password}:UserRequest){
+       
+        if(!id){
+            throw new Error("ID do usuário é obrigatório.")
+        }
+
+        const userExist = await prismaClient.user.findFirst({
+            where:{
+                id:id
+            }
+        })
+
+        if(!userExist){
+            throw new Error("Usuário não existe.")
+        }
+
+        //const passwordHash = await hash(password, 8)
+
+        const userUpdated = await prismaClient.user.update({
+            where:{
+                id:id
+            },
+            data:{
+                name:name,
+                password:password
+            },
+            select:{
+                id:true,
+                name:true,
+                email:true
+            }
+        })
+
+        return userUpdated
+    }
+    async delete({id}:UserRequest){
+
+        if(!id){
+            throw new Error("ID obrigatório");
+        }
+
+        const userExist = await prismaClient.user.findFirst({
+            where:{
+                id:id
+            }
+        })
+
+        if(!userExist){
+            throw new Error("Usuário não encontrado.")
+        }
+
+        const user = await prismaClient.user.delete({
+            where:{
+                id:id
+            }
+        })
+        return user
+    }
     async detail(userId:string){
 
         const user = prismaClient.user.findFirst({
@@ -51,8 +110,7 @@ class UserService{
             select:{
                 id:true,
                 email:true,
-                reserves:true,
-                admin:true
+                name:true
             }
         })
         return user;

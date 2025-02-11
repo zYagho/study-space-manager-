@@ -53,7 +53,7 @@ Passos para rodar o projeto de engenharia de software:
 
 11: Instalando o JWT
 	$ yarn add jsonwebtoken
-	$ yarn add @types/jsonwebtoken
+	$ yarn add @types/jsonwebtoken -D
 
 12: Instalando o dotenv
 	$ yarn add dotenv
