@@ -8,9 +8,8 @@ interface Payload{
 export function isAuthenticated(req: Request, res: Response, next: NextFunction){
 
     const authtoken = req.headers.authorization;
-
     if(!authtoken){
-        return res.status(401).end();
+        return res.status(401).json({error:"Token não fornecido!"})
     }
 
     const [, token] = authtoken.split(" ");
@@ -23,7 +22,7 @@ export function isAuthenticated(req: Request, res: Response, next: NextFunction)
 
         return next();
     }catch(err){
-        return res.status(401).end();
+        return res.status(401).json({error:"Token inválido"})
     }
 
 }
