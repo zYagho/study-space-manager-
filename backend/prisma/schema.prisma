@@ -56,7 +56,7 @@ model Reserve{
   user User @relation(fields: [user_id],references: [id], onDelete: Cascade)
   user_id String
 
-  reservaSalaHorario ReserveRoomTime[]
+  reserveRoomTime ReserveRoomTime[]
 
 }
 
@@ -69,7 +69,7 @@ model Time{
   update_at DateTime? @default(now()) @updatedAt
 
   @@map("times")
-  reservaSalaHorario ReserveRoomTime[]
+  reserveRoomTime ReserveRoomTime[]
 }
 
 model ReserveRoomTime{
@@ -92,13 +92,13 @@ model ReserveRoomTime{
 
 model Room{
   id String @id @default(uuid())
-  name String
-
+  number Int
+  
   create_at DateTime? @default(now())
   update_at DateTime? @default(now()) @updatedAt
 
   @@map("rooms")
   //Uma sala pode ter várias reservas.
-  reservaSalaHorario ReserveRoomTime[]
+  reserveRoomTime ReserveRoomTime[]
 
 }
