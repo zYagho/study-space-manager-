@@ -14,11 +14,11 @@ const router = Router();
 
 
 //Rotas User
-//const userController = new UserController();
-router.post('/users',new UserController().create);
-router.put('/users/:id', isAuthenticated, new UserController().update);
-router.delete('/users/:id',isAuthenticated,new UserController().delete);
-router.get('/me', isAuthenticated, new UserController().detail);
+const userController = new UserController();
+router.post('/users',userController.create.bind(userController));
+router.put('/users/:id', isAuthenticated, userController.update.bind(userController));
+router.delete('/users/:id',isAuthenticated, userController.delete.bind(userController));
+router.get('/me', isAuthenticated, userController.detail.bind(userController));
 router.post('/session', new AuthUserController().auth);
 
 
