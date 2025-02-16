@@ -6,6 +6,7 @@ import { isAuthenticated } from "./middlewares/isAuthenticated";
 import { AdminController } from "./controllers/AdminController";
 import { isAdmin } from "./middlewares/isAdmin";
 import { RoomController } from "./controllers/RoomController";
+import { TimesController } from "./controllers/TimeController";
 
 
 const router = Router();
@@ -36,5 +37,12 @@ router.post('/room', isAuthenticated, isAdmin, roomController.create.bind(roomCo
 router.get('/room', isAuthenticated, isAdmin, roomController.list.bind(roomController))
 router.delete('/room/:id', isAuthenticated, isAdmin, roomController.delete.bind(roomController))
 router.put('/room/:id', isAuthenticated, isAdmin, roomController.update.bind(roomController))
+
+
+const timesController = new TimesController();
+router.post('/time', isAuthenticated, isAdmin, timesController.create.bind(timesController))
+router.get('/time', isAuthenticated, isAdmin, timesController.list.bind(timesController))
+router.delete('/time/:id', isAuthenticated, isAdmin, timesController.delete.bind(timesController))
+router.put('/time/:id', isAuthenticated, isAdmin, timesController.update.bind(timesController))
 
 export {router};
