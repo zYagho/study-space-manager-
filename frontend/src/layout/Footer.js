@@ -7,6 +7,7 @@ function Footer() {
     return (
         <footer className={styles.footer}>
             <p> &copy; {new Date().getFullYear()} Study Space Manager. Todos os direitos reservados.</p>
+            <p>Projeto realizado para a disciplina de Engenharia de Software da UTFPR.</p>
             <p className={styles.links}>
                 <div>
                     <FaGithub /><a href='https://github.com/zyagho'>Repositório do projeto</a>
