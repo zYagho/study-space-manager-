@@ -9,7 +9,7 @@ import Login from './pages/Login'
 function App() {
   return (
     <BrowserRouter>
-      <Head />
+      <Head signed={checkIfSigned()}/>
       <Container customClass='min-height'>
         <Routes>
           <Route exact path='/' element={<SalaDeEstudos />}></Route>
@@ -19,6 +19,12 @@ function App() {
       <Footer />
     </BrowserRouter>
   )
+}
+
+function checkIfSigned() {
+  const signed = false
+
+  return signed
 }
 
 export default App;

@@ -31,7 +31,7 @@ function Login() {
                 type='password'
                 placeholder='Digite sua senha'
                 handleOnChange={(e) => setPassword(e.target.value)}/>
-                <p>Não tem cadastro? <a href="/cadastro">Clique aqui</a></p>
+                <p>Não tem cadastro? <a href="/register">Clique aqui</a></p>
                 <SubmitButton text='Entrar'/>
             </form>
         </div>
