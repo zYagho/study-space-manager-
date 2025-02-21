@@ -22,7 +22,8 @@ class RoomService{
         }
         const room = await prismaClient.room.create({
             data:{
-                number:number
+                number:number,
+                active:true
             }
         })
 
@@ -78,6 +79,17 @@ class RoomService{
             }
         })
         return ({message: "Sala excluída com sucesso."})
+    }
+
+    async listActiveRooms(){
+
+        const roomsActive = await prismaClient.room.findMany({
+            where:{
+                active:true
+            }
+        })
+
+        return roomsActive
     }
 }
 
