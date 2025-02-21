@@ -1,0 +1,32 @@
+.register {
+    border: solid 1px #d1d1d1;
+    background-color: #f1f1f1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 42%;
+    margin-top: 5em;
+    margin-bottom: 20em;
+    height: 500px;
+    min-height: 420px
+}
+
+.register h3 {
+    margin-top: 1.5em;
+    margin-bottom: 2.5em;
+}
+
+.register form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.register a {
+    color: #222;
+    transition: .25s;
+}
+
+.register a:hover {
+    color: #ffbb33;
+}
