@@ -45,7 +45,7 @@ model Admin{
 
 model Reserve{
   id String @id @default(uuid())
-
+  status Boolean
 
   create_at DateTime? @default(now())
   update_at DateTime? @default(now()) @updatedAt
@@ -93,7 +93,7 @@ model ReserveRoomTime{
 model Room{
   id String @id @default(uuid())
   number Int
-  active Boolean
+  status Boolean
   create_at DateTime? @default(now())
   update_at DateTime? @default(now()) @updatedAt
 
