@@ -20,7 +20,8 @@ class ReserveService{
 
         const reserve = await prismaClient.reserve.create({
             data:{
-                user_id:userExist.id
+                user_id:userExist.id,
+                status:true
             },
             select:{
                 id:true,

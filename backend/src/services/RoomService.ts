@@ -23,7 +23,8 @@ class RoomService{
         const room = await prismaClient.room.create({
             data:{
                 number:number,
-                active:true
+                status:true,
+                
             }
         })
 
@@ -85,7 +86,7 @@ class RoomService{
 
         const roomsActive = await prismaClient.room.findMany({
             where:{
-                active:true
+                status:true
             }
         })
 
