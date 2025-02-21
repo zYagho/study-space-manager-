@@ -1,10 +1,12 @@
 import { useLocation } from 'react-router-dom'
+import UseAuth from '../hooks/UseAuth'
 
 import styles from './Head.module.css'
 
-function Head({ signed }) {
+function Head() {
 
     const location = useLocation()
+    const { signed, user } = UseAuth()
     
     const isLoginOrRegister = () => {
         if (location.pathname == '/login' || location.pathname == '/register')
@@ -17,7 +19,7 @@ function Head({ signed }) {
             <h1>Salas de Estudos</h1>
             {!isLoginOrRegister() && (
                 signed ? (
-                    <p>Olá, fulano de tal</p>
+                    <p>Olá, {user.userName}</p>
                 ):(
                     <p>Fazer <a href="/login">login</a></p>
                 )

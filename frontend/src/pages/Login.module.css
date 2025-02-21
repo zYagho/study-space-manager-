@@ -22,6 +22,11 @@
     align-items: center;
 }
 
+/* gambiarra */
+.no_register {
+    padding-top: 2em;
+}
+
 .login a {
     color: #222;
     transition: .25s;
