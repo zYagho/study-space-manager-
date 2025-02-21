@@ -65,6 +65,19 @@ class RoomController{
             return res.status(400).json({Erro:error.message})
         }
     }
+
+    async listActiveRooms(req: Request, res: Response){
+
+        try{
+
+            const roomsActive = await this.RoomService.listActiveRooms()
+
+            return res.status(200).json(roomsActive)
+            
+        }catch(err){
+            return res.status(400).json({Error: err.message})
+        }
+    }
 }
 
 export {RoomController}
