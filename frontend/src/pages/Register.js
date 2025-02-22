@@ -12,28 +12,55 @@ function Register() {
     const navigate = useNavigate()
     const { register } = UseAuth()
 
-    const [userName, setUserName] = useState('')
+    const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
 
-    function submit(e) {
-        e.preventDefault()
+    // function submit(e) {
+    //     e.preventDefault()
         
-        if (!userName || !email || !password) {
-            setError('Preencha todos os campos')
-            return
+    //     if (!userName || !email || !password) {
+    //         setError('Preencha todos os campos')
+    //         return
+    //     }
+
+    //     const result = register(userName, email, password)
+
+    //     if (result) {
+    //         setError(result)
+    //         return
+    //     }
+
+    //     alert('Usuário cadastrado com sucesso!')
+    //     navigate('/login')
+    // }
+
+    async function submit(e) {
+        e.preventDefault()
+
+        const user = { name, email, password }
+        console.log(user)
+
+        try {
+            const response = await fetch('http://localhost:3333/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(user),
+            });
+      
+            if (!response.ok) {
+                throw new Error('Erro ao criar usuário');
+            }
+      
+            const data = await response.json();
+            console.log('Usuário criado:', data);
+
+        } catch (error) {
+            console.error('Erro:', error);
         }
-
-        const result = register(userName, email, password)
-
-        if (result) {
-            setError(result)
-            return
-        }
-
-        alert('Usuário cadastrado com sucesso!')
-        navigate('/login')
     }
 
     return (
@@ -45,7 +72,7 @@ function Register() {
                 text='seu nome completo'
                 type='text'
                 placeholder='Digite seu nome completo'
-                handleOnChange={(e) => setUserName(e.target.value)}/>
+                handleOnChange={(e) => setName(e.target.value)}/>
                 <Input
                 name='email'
                 text='e-mail'

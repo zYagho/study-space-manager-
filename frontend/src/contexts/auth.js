@@ -39,25 +39,24 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    const register = (userName, email, password) => {
-        const usersStorage = JSON.parse(localStorage.getItem('users_db'))
+    // const register = (userName, email, password) => {
+    //     // verifica se já há algum usuario com este email cadastrado
+    //     const usersStorage = JSON.parse(localStorage.getItem('users_db'))
+    //     const hasUser = usersStorage?.filter((user) => user.email === email)
+    //     if (hasUser?.length)
+    //         return 'Já existe uma conta com esse E-mail'
 
-        // verifica se já há algum usuario com este email cadastrado
-        const hasUser = usersStorage?.filter((user) => user.email === email)
-        if (hasUser?.length)
-            return 'Já existe uma conta com esse E-mail'
+    //     // se não, cria um novo usuário
+    //     let newUser
 
-        // se não, cria um novo usuário
-        let newUser
+    //     // if (usersStorage)
+    //     //     newUser = [...usersStorage, { userName, email, password }]
+    //     // else
+    //     //     newUser = [{ userName, email, password }]
 
-        if (usersStorage)
-            newUser = [...usersStorage, { userName, email, password }]
-        else
-            newUser = [{ userName, email, password }]
-
-        localStorage.setItem('users_db', JSON.stringify(newUser))
-        return
-    }
+    //     // localStorage.setItem('users_db', JSON.stringify(newUser))
+    //     // return
+    // }
 
     const logout = () => {
         setUser(null)
@@ -65,7 +64,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ user, signed: !!user, login, register, logout }}>
+        <AuthContext.Provider value={{ user, signed: !!user, login, /*register,*/ logout }}>
             {children}
         </AuthContext.Provider>
     )
