@@ -22,9 +22,18 @@
     align-items: center;
 }
 
+.login p {
+    color: red;
+}
+
 /* gambiarra */
 .no_register {
     padding-top: 2em;
+}
+
+/* gambiarra */
+.no_register p {
+    color: black;
 }
 
 .login a {

@@ -1,37 +1,53 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import Input from '../components/form/Input'
 import SubmitButton from '../components/form/SubmitButton'
-import UseAuth from '../hooks/UseAuth'
 
 import styles from './Login.module.css'
 
 function Login() {
 
-    const { login } = UseAuth()
     const navigate = useNavigate()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
 
-    function submit(e) {
+    async function submit(e) {
         e.preventDefault()
-        
+
         if (!email || !password) {
             setError('Preencha todos os campos')
             return
         }
-    
-        const result = login(email, password)
 
-        if (result) {
-            setError(result)
-            return
+        const loginDatas = { email, password }
+
+        try {
+            const response = await fetch('http://localhost:3333/session', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(loginDatas),
+            });
+      
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Erro ao fazer login');
+            }
+      
+            const data = await response.json();
+            localStorage.setItem('user_token', JSON.stringify(data)) // salva o token
+
+            alert(`Usuário ${data.name} logado com sucesso!`)
+            navigate('/')
+      
+        } catch (e) {
+            console.error(e.message)
+            setError(e.message)
         }
-
-        navigate('/')
     }
 
     return (

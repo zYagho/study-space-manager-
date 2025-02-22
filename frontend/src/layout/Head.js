@@ -1,11 +1,10 @@
 import { useLocation } from 'react-router-dom'
 
 import styles from './Head.module.css'
-import UseAuth from '../hooks/UseAuth'
 
-function Head(props) {
+function Head() {
 
-    const { signed, user } = UseAuth()
+    const logedUser = JSON.parse(localStorage.getItem('user_token'))
     const location = useLocation()
     
     const isLoginOrRegister = () => {
@@ -16,10 +15,10 @@ function Head(props) {
 
     return (
         <header className={styles.header}>
-            <h1>Salas de Estudos {signed}</h1>
+            <h1>Salas de Estudos</h1>
             {!isLoginOrRegister() && (
-                signed ? (
-                    <p>Olá, {user.userName}</p>
+                logedUser ? (
+                    <p>Olá, {logedUser.name}</p>
                 ):(
                     <p>Fazer <a href="/login">login</a></p>
                 )
