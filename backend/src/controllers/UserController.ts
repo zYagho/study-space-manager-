@@ -2,14 +2,16 @@ import { Request, Response } from "express";
 import { UserService } from "../services/UserService";
 
 class UserController{
-    
+    private timesService: UserService
+    constructor(){
+        this.timesService = new UserService();
+    }
+
     async create(req: Request, res: Response){
 
         const {name, email, password} = req.body;
 
-        const createUserService = new UserService();
-
-        const user = await createUserService.create({name, email, password})
+        const user = await this.timesService.create({name, email, password})
 
         return res.json(user)
     }
@@ -20,8 +22,7 @@ class UserController{
 
         const {name, password} = req.body;
 
-        const userService = new UserService();
-        const user = await userService.update({id, name, password})
+        const user = await this.timesService.update({id, name, password})
 
         return res.json(user)
     }
@@ -29,9 +30,7 @@ class UserController{
     async delete(req:Request, res: Response){
         const {id} = req.params
 
-        const userService = new UserService();
-
-        const user = await userService.delete({id});
+        const user = await this.timesService.delete({id});
 
         return res.json(user)
     }
@@ -40,9 +39,7 @@ class UserController{
 
         const userId = req.user_id
 
-        const detailUser = new UserService();
-
-        const user = await detailUser.detail(userId);
+        const user = await this.timesService.detail(userId);
 
         res.json(user)
     }

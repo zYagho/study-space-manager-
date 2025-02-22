@@ -6,18 +6,19 @@ import { isAuthenticated } from "./middlewares/isAuthenticated";
 import { AdminController } from "./controllers/AdminController";
 import { isAdmin } from "./middlewares/isAdmin";
 import { RoomController } from "./controllers/RoomController";
-
+import { TimesController } from "./controllers/TimeController";
+import { ReserveController } from "./controllers/ReserveController";
 
 const router = Router();
 
 
 
 //Rotas User
-//const userController = new UserController();
-router.post('/users',new UserController().create);
-router.put('/users/:id', isAuthenticated, new UserController().update);
-router.delete('/users/:id',isAuthenticated,new UserController().delete);
-router.get('/me', isAuthenticated, new UserController().detail);
+const userController = new UserController();
+router.post('/users',userController.create.bind(userController));
+router.put('/users/:id', isAuthenticated, userController.update.bind(userController));
+router.delete('/users/:id',isAuthenticated, userController.delete.bind(userController));
+router.get('/me', isAuthenticated, userController.detail.bind(userController));
 router.post('/session', new AuthUserController().auth);
 
 
@@ -36,5 +37,22 @@ router.post('/room', isAuthenticated, isAdmin, roomController.create.bind(roomCo
 router.get('/room', isAuthenticated, isAdmin, roomController.list.bind(roomController))
 router.delete('/room/:id', isAuthenticated, isAdmin, roomController.delete.bind(roomController))
 router.put('/room/:id', isAuthenticated, isAdmin, roomController.update.bind(roomController))
+router.get('/room/actives', isAuthenticated, isAdmin, roomController.listActiveRooms.bind(roomController))
+
+
+const timesController = new TimesController();
+router.post('/time', isAuthenticated, isAdmin, timesController.create.bind(timesController))
+router.get('/time', isAuthenticated, isAdmin, timesController.list.bind(timesController))
+router.delete('/time/:id', isAuthenticated, isAdmin, timesController.delete.bind(timesController))
+router.put('/time/:id', isAuthenticated, isAdmin, timesController.update.bind(timesController))
+
+
+const reserveController = new ReserveController();
+router.post('/reserve', isAuthenticated, reserveController.create.bind(reserveController))
+router.get('/reserve', isAuthenticated, reserveController.list.bind(reserveController))
+router.delete('/reserve/:id', isAuthenticated, reserveController.delete.bind(reserveController))
+router.put('/reserve/:id', isAuthenticated, reserveController.update.bind(reserveController))
+router.get('/reserve/user', isAuthenticated, reserveController.listReserveUser.bind(reserveController))
+
 
 export {router};

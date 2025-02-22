@@ -62,7 +62,6 @@ class AdminController{
 
             const user_id = req.user_id
             const deleteAdmin = await this.adminService.delete({user_id})
-            
             return res.status(200).json(deleteAdmin)
         }catch(error){
             res.status(400).json({err:error.message})
