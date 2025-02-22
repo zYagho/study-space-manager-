@@ -26,9 +26,10 @@ export const AuthProvider = ({ children }) => {
 
         if (hasUser?.length) {
             if (hasUser[0].email === email && hasUser[0].password === password) {
-                const token = Math.random().toString(36).substring(2)
+                const token = Math.random().toString(36).substring(2) // cria um "token" para o user
                 localStorage.setItem('user_token', JSON.stringify({ email, token }))
-                setUser({ email, password })
+                const userName = hasUser[0].userName
+                setUser({ userName, email, password })
                 return;
             } else {
                 return 'E-mail ou senha incorretos'
