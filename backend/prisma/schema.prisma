@@ -74,7 +74,8 @@ model Time{
 
 model ReserveRoomTime{
   id String  @id @default(uuid())
-
+  status Boolean
+  reserveDay DateTime
   create_at DateTime? @default(now())
   update_at DateTime? @default(now()) @updatedAt
 
