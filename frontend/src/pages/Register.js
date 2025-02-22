@@ -1,66 +1,52 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import styles from './Register.module.css'
 
 import Input from '../components/form/Input'
 import SubmitButton from '../components/form/SubmitButton'
-import UseAuth from '../hooks/UseAuth'
 
 function Register() {
 
     const navigate = useNavigate()
-    const { register } = UseAuth()
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
 
-    // function submit(e) {
-    //     e.preventDefault()
-        
-    //     if (!userName || !email || !password) {
-    //         setError('Preencha todos os campos')
-    //         return
-    //     }
-
-    //     const result = register(userName, email, password)
-
-    //     if (result) {
-    //         setError(result)
-    //         return
-    //     }
-
-    //     alert('Usuário cadastrado com sucesso!')
-    //     navigate('/login')
-    // }
-
     async function submit(e) {
         e.preventDefault()
 
+        if (!name || !email || !password) {
+            setError('Preencha todos os campos')
+            return
+        }
+
         const user = { name, email, password }
-        console.log(user)
 
         try {
             const response = await fetch('http://localhost:3333/users', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(user),
             });
       
             if (!response.ok) {
-                throw new Error('Erro ao criar usuário');
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Erro ao criar usuário');
             }
       
             const data = await response.json();
-            console.log('Usuário criado:', data);
-
-        } catch (error) {
-            console.error('Erro:', error);
-        }
+            alert(`Usuário ${user.name} criado!`)
+            navigate('/login')
+      
+          } catch (e) {
+            console.error(e.message)
+            setError(e.message)
+          }
     }
 
     return (
