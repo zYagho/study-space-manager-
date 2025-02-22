@@ -14,8 +14,6 @@ function Head(props) {
         return false
     }
 
-    console.log(`atualizando o Head. O user esta logado: ${signed} se sim, seu nome é ${signed ? user.userName : ''}`)
-
     return (
         <header className={styles.header}>
             <h1>Salas de Estudos {signed}</h1>
