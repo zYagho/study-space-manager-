@@ -29,7 +29,7 @@ function Register() {
             const response = await fetch('http://localhost:3333/users', {
                 method: 'POST',
                 headers: {
-                'Content-Type': 'application/json',
+                    'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(user),
             });
@@ -43,10 +43,10 @@ function Register() {
             alert(`Usuário ${user.name} criado!`)
             navigate('/login')
       
-          } catch (e) {
+        } catch (e) {
             console.error(e.message)
             setError(e.message)
-          }
+        }
     }
 
     return (
