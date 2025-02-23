@@ -35,19 +35,59 @@ class ReserveRoomTimeService{
         })
         if(!roomIDExist) throw new Error("Sala não existe.")
 
+        const dataReserva = new Date(reserveDay)
+
+        const reserveAlreadyExist = await prismaClient.reserveRoomTime.findFirst({
+            where:{
+                reserveDay: dataReserva,
+                time_id:timeID,
+                reserve_id:reserveID,
+                room_id:roomID,
+                status:true
+            }
+        })
+        if(reserveAlreadyExist && reserveAlreadyExist.time_id === timeID  && reseveIDExist.status == true){
+            throw new Error("Já existe uma reserva ativa nesse mesmo horário e sala.")
+        }
+
         const reserve = prismaClient.reserveRoomTime.create({
             data:{
                 room: {
-                    connect: { id: roomID }, // Conecta a sala existente
+                    connect: { id: roomID }, 
                   },
                 time: {
-                    connect: { id: timeID }, // Conecta o horário existente
+                    connect: { id: timeID },
                   },
                 reserve: {
-                    connect: { id: reserveID }, // Conecta a reserva existente
+                    connect: { id: reserveID },
                   },
-                reserveDay:reserveDay,
+                reserveDay:dataReserva,
                 status:true
+            },
+            select:{
+                id:true,
+                room:{
+                    select:{
+                        number:true
+                    }
+                },
+                time:{
+                    select:{
+                        horaInicio:true,
+                        horaFim:true
+                    }
+                },
+                reserveDay:true,
+                reserve:{
+                    select:{
+                        user:{
+                            select:{
+                                name:true,
+                                email:true
+                            }
+                        }
+                    }
+                }
             }
         })
         return reserve

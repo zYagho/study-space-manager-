@@ -14,8 +14,8 @@ class ReserveRoomTimeController{
             const {reserveID, timeID, roomID, reserveDay} = req.body
 
             const reserve = await this.reserveService.create({reserveID, timeID, roomID, reserveDay})
-
-            return res.status(400).json(reserve)
+            console.log(reserve)
+            return res.status(200).json(reserve)
         }catch(err){
             return res.status(400).json({Error:err.message})
         }
