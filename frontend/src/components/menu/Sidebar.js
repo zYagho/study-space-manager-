@@ -1,9 +1,16 @@
+import { useNavigate } from 'react-router-dom'
+
 import styles from './Sidebar.module.css'
 
 function Sidebar() {
 
+    const navigate = useNavigate()
+
     function logout() {
-        alert('Logout do usuário')
+        const logedUser = JSON.parse(localStorage.getItem('user_token'))
+        localStorage.removeItem('user_token')
+        alert(`Até mais, ${logedUser.name}`)
+        navigate('/login')
     }
 
     return (
