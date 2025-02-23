@@ -31,10 +31,10 @@ router.delete('/admin', isAuthenticated, isAdmin, adminController.delete.bind(ad
 //Rotas Room
 const roomController = new RoomController();
 router.post('/room', isAuthenticated, isAdmin, roomController.create.bind(roomController))
-router.get('/room', isAuthenticated, isAdmin, roomController.list.bind(roomController))
+router.get('/room', roomController.list.bind(roomController))
 router.delete('/room/:id', isAuthenticated, isAdmin, roomController.delete.bind(roomController))
 router.put('/room/:id', isAuthenticated, isAdmin, roomController.update.bind(roomController))
-router.get('/room/actives', isAuthenticated, isAdmin, roomController.listActiveRooms.bind(roomController))
+router.get('/room/actives', roomController.listActiveRooms.bind(roomController))
 
 const timesController = new TimesController();
 router.post('/time', isAuthenticated, isAdmin, timesController.create.bind(timesController))

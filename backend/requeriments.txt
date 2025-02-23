@@ -57,3 +57,9 @@ Passos para rodar o projeto de engenharia de software:
 
 12: Instalando o dotenv
 	$ yarn add dotenv
+
+Conexão com o banco de dados arquivo .env - RUAN
+DATABASE_URL="postgresql://postgres:123456@localhost:5432/sala_de_estudos?schema=public"
+
+#Secret JWT
+JWT_SECRET=e1774fccd7ac59e93d1290f9f9df1025
