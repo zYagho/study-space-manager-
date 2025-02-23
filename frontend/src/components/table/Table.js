@@ -2,7 +2,7 @@ import styles from './Table.module.css'
 
 import Cell from './Cell'
 
-function Table({ horas, rooms }) {
+function Table({ horas, rooms, isLoadingRooms }) {
 
     return (
         <table className={styles.table}>
@@ -27,8 +27,14 @@ function Table({ horas, rooms }) {
             <tbody>
                 {rooms.map((room) => (
                     <tr key={room.number}>
-                        <th className={styles.salas_row} scope='row'>Sala {room.number}</th>
-                        <Cell horas={horas} />
+                        <>
+                            {!isLoadingRooms ? (
+                                <th className={styles.salas_row} scope='row'>Sala {room.number}</th>
+                            ):(
+                                <th className={styles.salas_row_loading}></th>
+                            )}
+                            <Cell horas={horas} />
+                        </>
                     </tr>
                 ))}
             </tbody>

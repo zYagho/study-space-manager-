@@ -57,7 +57,7 @@ function SalaDeEstudos() {
         <div className={styles.sala_de_estudos}>
             <h2>Sala de estudos disponíveis</h2>
             <SalasDoUsuario />
-            <Table horas={horas} rooms={rooms}/>
+            <Table horas={horas} rooms={rooms} isLoadingRooms={isLoadingRooms}/>
             {isSidebarOpen && (
                 <Sidebar />
             )}

@@ -34,3 +34,22 @@
 .salas_row {
     background-color: #f1f1f1;
 }
+
+/* animação feita por DeepSeek */
+.salas_row_loading::after {
+    content: '...';
+    display: inline-block;
+    width: 0;
+    overflow: hidden;
+    vertical-align: bottom;
+    animation: dots 1.5s steps(3, end) infinite;
+}
+
+@keyframes dots {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 1em; /* Ajuste conforme necessário para o tamanho da fonte */
+    }
+}
