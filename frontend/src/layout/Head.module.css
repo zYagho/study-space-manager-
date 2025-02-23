@@ -4,8 +4,28 @@
     background-color: #f1f1f1;
     border-bottom: solid 1px #d1d1d1;
     padding: 1em;
+    height: 6em;
+    max-height: 6em;
 }
 
 .header p {
     padding-top: 1em;
+}
+
+.header h1 {
+    margin-top: .5em;
+}
+
+.perfil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-inline: .5em;
+    transition: .25s;
+    
+}
+
+.perfil:hover {
+    color: #ffbb33;
+    cursor: pointer;
 }

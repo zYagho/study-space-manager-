@@ -1,9 +1,13 @@
 import { useLocation } from 'react-router-dom'
+import { useContext } from 'react';
+import { RiArrowDownSFill } from "react-icons/ri";
+import { SidebarContext } from '../context/SidebarContext';
 
 import styles from './Head.module.css'
 
 function Head() {
 
+    const { toggleSidebar } = useContext(SidebarContext)
     const logedUser = JSON.parse(localStorage.getItem('user_token'))
     const location = useLocation()
     
@@ -18,7 +22,10 @@ function Head() {
             <h1>Salas de Estudos</h1>
             {!isLoginOrRegister() && (
                 logedUser ? (
-                    <p>Olá, {logedUser.name}</p>
+                    <div onClick={toggleSidebar} className={styles.perfil}>
+                        <p>Olá, {logedUser.name}</p>
+                        <div><RiArrowDownSFill /></div>
+                    </div>
                 ):(
                     <p>Fazer <a href="/login">login</a></p>
                 )
