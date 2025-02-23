@@ -34,7 +34,7 @@ router.post('/room', isAuthenticated, isAdmin, roomController.create.bind(roomCo
 router.get('/room', roomController.list.bind(roomController))
 router.delete('/room/:id', isAuthenticated, isAdmin, roomController.delete.bind(roomController))
 router.put('/room/:id', isAuthenticated, isAdmin, roomController.update.bind(roomController))
-router.get('/room/actives', isAuthenticated, isAdmin, roomController.listActiveRooms.bind(roomController))
+router.get('/room/actives', roomController.listActiveRooms.bind(roomController))
 
 const timesController = new TimesController();
 router.post('/time', isAuthenticated, isAdmin, timesController.create.bind(timesController))
@@ -52,6 +52,8 @@ router.get('/reserve/user', isAuthenticated, reserveController.listReserveUser.b
 
 const reserveRoomTimeController = new ReserveRoomTimeController();
 router.post('/reserveroomtime', isAuthenticated, reserveRoomTimeController.create.bind(reserveRoomTimeController))
+router.get('/reserveroomtime/detail', isAuthenticated, reserveRoomTimeController.detail.bind(reserveRoomTimeController))
+router.put('/reserveroomtime', isAuthenticated, reserveRoomTimeController.cancel.bind(reserveRoomTimeController))
 
 
 export {router};
