@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { SidebarContext } from '../context/SidebarContext'
 import Sidebar from '../components/menu/Sidebar'
 
@@ -9,6 +9,8 @@ import SalasDoUsuario from '../components/table/SalasDoUsuario'
 function SalaDeEstudos() {
 
     const { isSidebarOpen } = useContext(SidebarContext)
+    const [isLoadingRooms, setIsLoadingRooms ] = useState(true)
+    const [rooms, setRooms ] = useState([])
 
     // verificar se existe um token logado
     // verificar se o token ainda é válido
@@ -22,17 +24,40 @@ function SalaDeEstudos() {
     }
 
     // quantidade de salas
-    const salaQtd = 8
-    const salas = []
-    for (let i = 1; i <= salaQtd; i++) {
-        salas.push(`sala ${i}`)
-    }
+    useEffect(() => {
+        async function getRooms() {
+            try {
+                const response = await fetch('http://localhost:3333/room', {
+                    method: 'GET',
+                    headers: {
+                        'content_type': 'application/json'
+                    }
+                })
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Erro ao buscar as salas');
+                }
+
+                const data = await response.json()
+                setRooms(data)
+
+            } catch (e) {
+                console.error(e.message)
+            } finally {
+                setIsLoadingRooms(false)
+            }
+        }
+
+        getRooms()
+
+    }, [])
 
     return (
         <div className={styles.sala_de_estudos}>
             <h2>Sala de estudos disponíveis</h2>
             <SalasDoUsuario />
-            <Table horas={horas} salas={salas}/>
+            <Table horas={horas} rooms={rooms}/>
             {isSidebarOpen && (
                 <Sidebar />
             )}

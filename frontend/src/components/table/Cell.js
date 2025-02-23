@@ -7,7 +7,7 @@ function Cell({ horas }) {
     return (
         <>
             {horas.map((h) => (
-                <td className={styles.cell}>{/* espaço para clicar */}</td>
+                <td key={h.hora} className={styles.cell}>{/* espaço para clicar */}</td>
             ))}
         </>
     )

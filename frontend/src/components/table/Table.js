@@ -2,7 +2,8 @@ import styles from './Table.module.css'
 
 import Cell from './Cell'
 
-function Table({ horas, salas }) {
+function Table({ horas, rooms }) {
+
     return (
         <table className={styles.table}>
             <caption>
@@ -13,20 +14,20 @@ function Table({ horas, salas }) {
                 </div>
             </caption>
             <thead>
-                <tr key="header">
+                <tr>
                     <th scope='col'>Horários</th>
                     {
                         horas.map((h => (
-                            <th scope='col'>{String(h.hora).padStart(2, '0')}:{String(h.minuto).padStart(2, '0')}
+                            <th key={h.hora} cope='col'>{String(h.hora).padStart(2, '0')}:{String(h.minuto).padStart(2, '0')}
                             -{String(h.hora + 1).padStart(2, '0')}:{String(h.minuto).padStart(2, '0')}</th>
                         )))
                     }
                 </tr>
             </thead>
             <tbody>
-                {salas.map((s) => (
-                    <tr>
-                        <th className={styles.salas_row} scope='row'>{s}</th>
+                {rooms.map((room) => (
+                    <tr key={room.number}>
+                        <th className={styles.salas_row} scope='row'>Sala {room.number}</th>
                         <Cell horas={horas} />
                     </tr>
                 ))}
