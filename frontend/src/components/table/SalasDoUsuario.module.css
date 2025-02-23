@@ -1,5 +1,5 @@
-.sala_de_estudos {
-    width: 100%;
+.salas_do_usuario {
+    border: solid 1px black;
     display: flex;
     flex-direction: column;
     align-items: center;

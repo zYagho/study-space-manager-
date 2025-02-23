@@ -1,0 +1,36 @@
+.table {
+    border-collapse: collapse;
+    border: 2px solid rgb(140 140 140);
+    font-size: 0.8rem;
+    letter-spacing: 0;
+}
+
+.table caption {
+    caption-side: top;
+    padding: 2em;
+    border: solid 2px black;
+}
+
+.table thead {
+    background-color: #ffbb33;
+}
+
+.table th, td {
+  border: 1px solid rgb(160 160 160);
+  padding: 8px 5px;
+}
+
+.table td:last-of-type {
+    text-align: center;
+}
+
+.day_selector {
+    display: flex;
+    justify-content: center;
+    gap: 5em;
+    border: solid 2px black;
+}
+
+.salas_row {
+    background-color: #f1f1f1;
+}
