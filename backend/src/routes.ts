@@ -8,6 +8,7 @@ import { isAdmin } from "./middlewares/isAdmin";
 import { RoomController } from "./controllers/RoomController";
 import { TimesController } from "./controllers/TimeController";
 import { ReserveController } from "./controllers/ReserveController";
+import { ReserveRoomTimeController } from "./controllers/ReserveRoomTimeController";
 
 const router = Router();
 
@@ -49,7 +50,7 @@ router.put('/reserve/:id', isAuthenticated, reserveController.update.bind(reserv
 router.get('/reserve/user', isAuthenticated, reserveController.listReserveUser.bind(reserveController))
 
 
-const reserveRoomTimeController = new ReserveController();
+const reserveRoomTimeController = new ReserveRoomTimeController();
 router.post('/reserveroomtime', isAuthenticated, reserveRoomTimeController.create.bind(reserveRoomTimeController))
 
 
