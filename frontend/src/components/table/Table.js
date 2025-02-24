@@ -2,7 +2,7 @@ import styles from './Table.module.css'
 
 import Cell from './Cell'
 
-function Table({ horas, rooms, isLoadingRooms }) {
+function Table({ hours, rooms, isLoadingRooms }) {
 
     return (
         <table className={styles.table}>
@@ -16,12 +16,9 @@ function Table({ horas, rooms, isLoadingRooms }) {
             <thead>
                 <tr>
                     <th scope='col'>Horários</th>
-                    {
-                        horas.map((h => (
-                            <th key={h.hora} cope='col'>{String(h.hora).padStart(2, '0')}:{String(h.minuto).padStart(2, '0')}
-                            -{String(h.hora + 1).padStart(2, '0')}:{String(h.minuto).padStart(2, '0')}</th>
-                        )))
-                    }
+                    {hours.map((h) => (
+                        <th key={h.id} cope='col'>{h.horaInicio} - {h.horaFim}</th>
+                    ))}
                 </tr>
             </thead>
             <tbody>
@@ -33,7 +30,7 @@ function Table({ horas, rooms, isLoadingRooms }) {
                             ):(
                                 <th className={styles.salas_row_loading}></th>
                             )}
-                            <Cell horas={horas} />
+                            <Cell hours={hours} room={room} />
                         </>
                     </tr>
                 ))}

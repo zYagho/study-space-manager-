@@ -4,3 +4,8 @@
     flex-direction: column;
     align-items: center;
 }
+
+.sala_de_estudos h2 {
+    margin-top: 1em;
+    padding: 1.5em;
+}

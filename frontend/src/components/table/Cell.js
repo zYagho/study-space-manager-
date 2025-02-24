@@ -2,12 +2,12 @@ import PropTypes from 'prop-types'
 
 import styles from './Cell.module.css'
 
-function Cell({ horas }) {
+function Cell({ hours, room }) {
 
     return (
         <>
-            {horas.map((h) => (
-                <td key={h.hora} className={styles.cell}>{/* espaço para clicar */}</td>
+            {hours.map((h) => (
+                <td key={h.id} className={styles.cell} onClick={() => alert(`Sala ${room.number} e horário ${h.horaInicio} - ${h.horaFim}`)}>{/* espaço para clicar */}</td>
             ))}
         </>
     )
