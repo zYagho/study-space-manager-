@@ -21,22 +21,20 @@ function Table({ hours, rooms, isLoadingRooms }) {
         setCurrentDate(newDate)
     }
 
-    // TODO get Reservas from backend
+    // Lista as reservas da API
     const [ reservas, setReservas ] = useState([])
+    let reserveDayFormatted = `${year}-${month}-${day}`
 
     useEffect(() => {
 
-        const userToken = JSON.parse(localStorage.getItem('user_token')).token
-        const reserveDayFormatted = { reserveDay: `${year}-${month}-${day}` }
-
         async function getReservas() {
             try {
-                const response = fetch('http://localhost:3333/reserveroomtime', {
-                    method: 'GET',
+                const response = await fetch('http://localhost:3333/reserveroomtimes', {
+                    method: 'POST',
                     headers: {
                         'content-type': 'application/json'
                     },
-                    body: JSON.stringify(reserveDayFormatted)
+                    body: JSON.stringify({ "reserveDay": [reserveDayFormatted]})
                 })
 
                 if (!response.ok) {
@@ -54,8 +52,7 @@ function Table({ hours, rooms, isLoadingRooms }) {
 
         getReservas()
 
-    }, [])
-
+    }, [reserveDayFormatted])
 
     return (
         <table className={styles.table}>
@@ -88,7 +85,6 @@ function Table({ hours, rooms, isLoadingRooms }) {
                             hours={hours}
                             roomNumber={room.number}
                             reservas={reservas}
-                            currentDateDay={currentDate.getDate()}
                             />
                         </>
                     </tr>

@@ -5,9 +5,7 @@ function Cell({ hours, roomNumber, reservas, currentDateDay }) {
     let reserva = null
 
     const getReserva = (hour) => {
-        reserva = reservas.find((res) => {
-            return res.room.number === roomNumber && res.horaInicio === hour.horaInicio && res.dateDay === currentDateDay
-        })
+        reserva = reservas.find((res) => res.room.number === roomNumber && res.time.horaInicio === hour.horaInicio)
         return reserva
     }
 
@@ -20,7 +18,7 @@ function Cell({ hours, roomNumber, reservas, currentDateDay }) {
             {hours.map((hour) => (
                 <td key={hour.id} className={styles.cell} onClick={() => onSelectCell(hour)}>
                     {getReserva(hour) && (
-                        <>Reservado</>
+                        <>{String(reserva.reserve.user.name).split(' ', 1)}</>
                     )}
                 </td>
             ))}
