@@ -15,19 +15,25 @@ function SalaDeEstudos() {
     const [rooms, setRooms ] = useState([])
     const [hours, setHours] = useState([])
 
-    // verificar se existe um token logado
-    // verificar se o token ainda é válido
-    // define o intervalo de horas
-    const horaInicial = 7
-    const horaFinal = 22
-    const horaQtd = horaFinal - horaInicial
-    const horas = []
-    for (let i = 0; i < horaQtd; i++) {
-        horas.push({ hora: horaInicial + i, minuto: 0 })
-    }
+    // TESTE reservas
+    const reservas = [
+        { dateDay: 24, roomIndex: 0, hourIndex: 0},
+        { dateDay: 24, roomIndex: 0, hourIndex: 1},
+        { dateDay: 24, roomIndex: 0, hourIndex: 2},
+        { dateDay: 24, roomIndex: 0, hourIndex: 3},
+        { dateDay: 24, roomIndex: 0, hourIndex: 4},
+        { dateDay: 24, roomIndex: 1, hourIndex: 5},
+        { dateDay: 24, roomIndex: 1, hourIndex: 6},
+        { dateDay: 24, roomIndex: 1, hourIndex: 7},
+    ] 
 
-    // quantidade de salas
+    // verificar se existe um token logado
+    // verificar se o token ainda é válido    
+
     useEffect(() => {
+
+        // coletar as reservas existentes
+
         async function getHours() {
             try {
                 const response = await fetch('http://localhost:3333/time', {
@@ -78,6 +84,8 @@ function SalaDeEstudos() {
 
         getRooms()
         getHours()
+        // coletar as reservas e verificar quais células estão reservadas
+
 
     }, [])
 
@@ -85,7 +93,7 @@ function SalaDeEstudos() {
         <div className={styles.sala_de_estudos}>
             <SalasDoUsuario />
             <h2>Sala de estudos disponíveis</h2>
-            <Table hours={hours} rooms={rooms} isLoadingRooms={isLoadingRooms}/>
+            <Table hours={hours} rooms={rooms} isLoadingRooms={isLoadingRooms} reservas={reservas}/>
             <ResumoDeReserva />
             {isSidebarOpen && (
                 <Sidebar />

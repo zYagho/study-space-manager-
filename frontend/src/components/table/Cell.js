@@ -2,16 +2,27 @@ import PropTypes from 'prop-types'
 
 import styles from './Cell.module.css'
 
-function Cell({ hours, room }) {
+function Cell({ hours, roomIndex, reservas }) {
 
     function onCellClick(hour) {
-        alert(`Sala ${room.number} e horário ${hour.horaInicio} - ${hour.horaFim}`)
+        alert(`Sala ${roomIndex} e horário ${hour.horaInicio} - ${hour.horaFim}`)
+    }
+
+    let reserva = null
+    const getReserva = (hourIndex) => {
+        // TODO verificar data
+        reserva = reservas.find((res) => res.roomIndex == roomIndex && res.hourIndex == hourIndex)
+        return reserva
     }
 
     return (
         <>
-            {hours.map((h) => (
-                <td key={h.id} className={styles.cell} onClick={() => onCellClick(h)}>{/* espaço para clicar */}</td>
+            {hours.map((hour, index) => (
+                <td key={hour.id} className={styles.cell} onClick={() => onCellClick(hour)}>
+                    {getReserva(index) && (
+                        <>Reservado</>
+                    )}
+                </td>
             ))}
         </>
     )

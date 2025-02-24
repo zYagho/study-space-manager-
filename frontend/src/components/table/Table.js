@@ -3,7 +3,7 @@ import styles from './Table.module.css'
 import Cell from './Cell'
 import SeletorDeDias from './SeletorDeDias'
 
-function Table({ hours, rooms, isLoadingRooms }) {
+function Table({ hours, rooms, isLoadingRooms, reservas }) {
 
     return (
         <table className={styles.table}>
@@ -19,7 +19,7 @@ function Table({ hours, rooms, isLoadingRooms }) {
                 </tr>
             </thead>
             <tbody>
-                {rooms.map((room) => (
+                {rooms.map((room, index) => (
                     <tr key={room.number}>
                         <>
                             {!isLoadingRooms ? (
@@ -27,7 +27,7 @@ function Table({ hours, rooms, isLoadingRooms }) {
                             ):(
                                 <th className={styles.salas_row_loading}></th>
                             )}
-                            <Cell hours={hours} room={room} />
+                            <Cell hours={hours} roomIndex={index} reservas={reservas}/>
                         </>
                     </tr>
                 ))}
