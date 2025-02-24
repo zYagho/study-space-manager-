@@ -34,9 +34,6 @@ function SalaDeEstudos() {
     // verificar se o token ainda é válido    
 
     useEffect(() => {
-
-        // coletar as reservas existentes
-
         async function getHours() {
             try {
                 const response = await fetch('http://localhost:3333/time', {
@@ -87,8 +84,6 @@ function SalaDeEstudos() {
 
         getRooms()
         getHours()
-        // coletar as reservas e verificar quais células estão reservadas
-
 
     }, [])
 
@@ -96,7 +91,7 @@ function SalaDeEstudos() {
         <div className={styles.sala_de_estudos}>
             <SalasDoUsuario />
             <h2>Sala de estudos disponíveis</h2>
-            <Table hours={hours} rooms={rooms} isLoadingRooms={isLoadingRooms} reservas={reservas}/>
+            <Table hours={hours} rooms={rooms} isLoadingRooms={isLoadingRooms} />
             <ResumoDeReserva />
             {isSidebarOpen && (
                 <Sidebar />

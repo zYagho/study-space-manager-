@@ -3,9 +3,9 @@ import styles from './Table.module.css'
 import Cell from './Cell'
 import SeletorDeDias from './SeletorDeDias'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-function Table({ hours, rooms, isLoadingRooms, reservas }) {
+function Table({ hours, rooms, isLoadingRooms }) {
 
     const weekDays = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado']
     const [currentDate, setCurrentDate] = useState(new Date())
@@ -20,6 +20,42 @@ function Table({ hours, rooms, isLoadingRooms, reservas }) {
         newDate.setDate(currentDate.getDate() + direction)
         setCurrentDate(newDate)
     }
+
+    // TODO get Reservas from backend
+    const [ reservas, setReservas ] = useState([])
+
+    useEffect(() => {
+
+        const userToken = JSON.parse(localStorage.getItem('user_token')).token
+        const reserveDayFormatted = { reserveDay: `${year}-${month}-${day}` }
+
+        async function getReservas() {
+            try {
+                const response = fetch('http://localhost:3333/reserveroomtime', {
+                    method: 'GET',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(reserveDayFormatted)
+                })
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Erro ao buscar as reservas')
+                }
+
+                const data = await response.json()
+                setReservas(data)
+
+            } catch (err) {
+                console.log(err)
+            }
+        }
+
+        getReservas()
+
+    }, [])
+
 
     return (
         <table className={styles.table}>
@@ -40,7 +76,7 @@ function Table({ hours, rooms, isLoadingRooms, reservas }) {
                 </tr>
             </thead>
             <tbody>
-                {rooms.map((room, index) => (
+                {rooms.map((room) => (
                     <tr key={room.number}>
                         <>
                             {!isLoadingRooms ? (
@@ -50,7 +86,7 @@ function Table({ hours, rooms, isLoadingRooms, reservas }) {
                             )}
                             <Cell
                             hours={hours}
-                            roomIndex={index}
+                            roomNumber={room.number}
                             reservas={reservas}
                             currentDateDay={currentDate.getDate()}
                             />

@@ -1,23 +1,25 @@
 import styles from './Cell.module.css'
 
-function Cell({ hours, roomIndex, reservas, currentDateDay }) {
+function Cell({ hours, roomNumber, reservas, currentDateDay }) {
 
     let reserva = null
 
-    const getReserva = (hourIndex) => {
-        reserva = reservas.find((res) => res.roomIndex === roomIndex && res.hourIndex === hourIndex && res.dateDay === currentDateDay)
+    const getReserva = (hour) => {
+        reserva = reservas.find((res) => {
+            return res.room.number === roomNumber && res.horaInicio === hour.horaInicio && res.dateDay === currentDateDay
+        })
         return reserva
     }
 
     function onSelectCell(hour) {
-        alert(`Sala ${roomIndex} e horário ${hour.horaInicio} - ${hour.horaFim}`)
+        alert(`Sala ${roomNumber} e horário ${hour.horaInicio} - ${hour.horaFim}`)
     }
 
     return (
         <>
-            {hours.map((hour, index) => (
+            {hours.map((hour) => (
                 <td key={hour.id} className={styles.cell} onClick={() => onSelectCell(hour)}>
-                    {getReserva(index) && (
+                    {getReserva(hour) && (
                         <>Reservado</>
                     )}
                 </td>
