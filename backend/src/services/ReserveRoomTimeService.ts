@@ -1,10 +1,11 @@
 import prismaClient from "../prisma"
 
 interface ReserveRequest{
-    reserveID: string,
-    roomID: string,
-    timeID: string,
-    reserveDay: Date
+    id?:string,
+    reserveID?: string,
+    roomID?: string,
+    timeID?: string,
+    reserveDay?: Date,
 }
 
 class ReserveRoomTimeService{
@@ -91,6 +92,99 @@ class ReserveRoomTimeService{
             }
         })
         return reserve
+    }
+
+    async cancel({id}:ReserveRequest){
+        if(!id){
+            throw new Error("O ID da reserve é obrigatório.")
+        }
+
+        const reserveAlreadyExist = await prismaClient.reserveRoomTime.findFirst({
+            where:{
+                id:id
+            }
+        })
+
+        if(!reserveAlreadyExist){
+            throw new Error("Reserva de sala não encontrada.")
+        }
+
+        const reserveCanc = await prismaClient.reserveRoomTime.update({
+            data:{
+                status:false
+            },
+            where:{
+                id:id
+            }
+        })
+
+        return reserveCanc
+    }
+
+    async detail({id}: ReserveRequest){
+
+        const reserveAlreadyExist = await prismaClient.reserveRoomTime.findFirst({
+            where:{
+                id:id,
+                //status:true
+            },
+            select:{
+                id:true,
+                reserveDay:true,
+                status:true,
+                reserve:{
+                    select:{
+                        user:{
+                            select:{
+                                email:true,
+                                name:true
+                            }
+                        }
+                    }
+                },
+                time:{
+                    select:{
+                        horaInicio:true,
+                        horaFim:true
+                    }
+                }
+            }
+        })
+
+        return reserveAlreadyExist
+    }
+
+    async list({reserveDay}:ReserveRequest){
+        const dataReserva = new Date(reserveDay)
+        const reserves = await prismaClient.reserveRoomTime.findMany({
+            where:{
+                reserveDay:dataReserva,
+                status:true
+            },
+            select:{
+                id:true,
+                reserveDay:true,
+                reserve:{
+                    select:{
+                        user:{
+                            select:{
+                                name:true,
+                                email:true
+                            }
+                        }
+                    }
+                },
+                time:{
+                    select:{
+                        horaInicio:true,
+                        horaFim:true
+                    }
+                },
+                status:true
+            }
+        })
+
+        return reserves
     }
 }
 

@@ -9,7 +9,7 @@ class RoomService{
 
     async create({number}:RoomRequest){
         
-        if(!number) throw new Error("Nome da sala é obrigatório.");
+        if(!number) throw new Error("Numero da sala é obrigatório.");
 
         const roomExist = await prismaClient.room.findFirst({
             where:{
@@ -40,7 +40,7 @@ class RoomService{
 
     async update({id, number}:RoomRequest){
         
-        if(!id) throw new Error("Nome da sala é obrigatório.");
+        if(!id) throw new Error("Numero da sala é obrigatório.");
 
         const roomExist = await prismaClient.room.findFirst({
             where:{
