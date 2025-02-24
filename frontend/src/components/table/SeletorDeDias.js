@@ -1,23 +1,28 @@
+import { useState } from 'react'
+
 import styles from './SeletorDeDias.module.css'
 
 function SeletorDeDias() {
 
-    const currentDate = new Date()
+    const weekDays = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado']
+    const [currentDate, setCurrentDate] = useState(new Date())
 
     const day = String(currentDate.getDate()).padStart(2, '0')
     const month = String(currentDate.getMonth() + 1).padStart(2, '0')
     const year = currentDate.getFullYear()
-
-    // Formata a data no formato "dd/MM/yyyy"
     const currentDateFormatted = `${day}/${month}/${year}`
 
-    const weekDays = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado']
+    function alternateDays(direction) {
+        const newDate = new Date(currentDate)
+        newDate.setDate(currentDate.getDate() + direction)
+        setCurrentDate(newDate)
+    }
 
     return (
         <div className={styles.day_selector}>
-            <p>Anterior</p>
+            <p onClick={() => alternateDays(-1)} >Anterior</p>
             <h3>{weekDays[currentDate.getDay()]} {currentDateFormatted}</h3>
-            <p>Próximo</p>
+            <p onClick={() => alternateDays(1)} >Próximo</p>
         </div>
     )
 }
