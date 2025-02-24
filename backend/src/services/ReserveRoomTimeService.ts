@@ -5,7 +5,7 @@ interface ReserveRequest{
     reserveID?: string,
     roomID?: string,
     timeID?: string,
-    reserveDay?: Date
+    reserveDay?: Date,
 }
 
 class ReserveRoomTimeService{
@@ -152,6 +152,39 @@ class ReserveRoomTimeService{
         })
 
         return reserveAlreadyExist
+    }
+
+    async list({reserveDay}:ReserveRequest){
+        const dataReserva = new Date(reserveDay)
+        const reserves = await prismaClient.reserveRoomTime.findMany({
+            where:{
+                reserveDay:dataReserva,
+                status:true
+            },
+            select:{
+                id:true,
+                reserveDay:true,
+                reserve:{
+                    select:{
+                        user:{
+                            select:{
+                                name:true,
+                                email:true
+                            }
+                        }
+                    }
+                },
+                time:{
+                    select:{
+                        horaInicio:true,
+                        horaFim:true
+                    }
+                },
+                status:true
+            }
+        })
+
+        return reserves
     }
 }
 
