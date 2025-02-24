@@ -23,8 +23,7 @@
     font-family: Arial, sans-serif;
     padding: 20px;
     background-color: #f1f1f1;
-    border: solid 1px #d1d1d1;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: solid 2px #d1d1d1;
 }
 
 /* Estilo do título */
@@ -71,7 +70,6 @@
     margin-bottom: 5px;
     padding: 3px;
     width: fit-content;
-    background-color: #ffbb33;
     border-radius: 8px;
     font-weight: bold;
 }

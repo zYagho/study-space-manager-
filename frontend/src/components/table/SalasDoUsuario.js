@@ -1,23 +1,23 @@
 import styles from './SalasDoUsuario.module.css'
 
-function SalasDoUsuario() {
+function SalasDoUsuario({ title, dateDay, room, hour }) {
     return (
         <div className={styles.salas_do_usuario}>
-            <h3>Suas salas</h3>
+            <h3>{title}</h3>
             <ol className={styles.lista_dias}>
-                <li>Segunda 24/02/2025 
+                <li>{dateDay} 
                     <ul>
                         <li>
                             <ul className={styles.lista_salas} type="circle">
-                                <p>Sala 3:</p>
-                                <li>intervalo</li>
-                                <li>intervalo</li>
+                                <p>{room}:</p>
+                                <li>{hour}</li>
+                                <li>{hour}</li>
                             </ul>
                         </li>
                         <li>
                             <ul className={styles.lista_salas}>
-                                <p>Sala 5:</p>
-                                <li>intervalo</li>
+                                <p>{room}:</p>
+                                <li>{hour}</li>
                             </ul>
                         </li>
                     </ul>

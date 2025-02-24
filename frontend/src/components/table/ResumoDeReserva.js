@@ -1,21 +1,26 @@
 import styles from './ResumoDeReserva.module.css'
+import SalasDoUsuario from './SalasDoUsuario'
 
 function ResumoDeReserva() {
 
     const isSelect = true
 
     return (
-        <div>
+        <div className={styles.resumo}>
             {isSelect ? (
-                <div>
-                    <p>Dia tal</p>
-                    <p>Sala tal</p>
-                    <p>Reservar</p>
-                    <p>Cancelar</p>
-                </div>
+                <SalasDoUsuario
+                title='Resumo'
+                dateDay='segunda 24/02/2025'
+                room='Sala 3'
+                hour='10:00 - 11:00'
+                />
             ):(
                 <p>Selecione os horários de uma sala para reservar</p>
             )}
+            <div className={styles.buttons}>
+                <button className={styles.btn_cancelar}>Cancelar</button>
+                <button className={styles.btn_reservar}>Reservar</button>
+            </div>
         </div>
     )
 }
