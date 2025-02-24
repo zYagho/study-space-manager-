@@ -180,6 +180,13 @@ class ReserveRoomTimeService{
                         horaFim:true
                     }
                 },
+                room:{
+                    select:{
+                        id:true,
+                        number:true
+                    }
+                }
+                ,
                 status:true
             }
         })
