@@ -1,17 +1,14 @@
 import styles from './Table.module.css'
 
 import Cell from './Cell'
+import SeletorDeDias from './SeletorDeDias'
 
 function Table({ hours, rooms, isLoadingRooms }) {
 
     return (
         <table className={styles.table}>
             <caption>
-                <div className={styles.day_selector}>
-                    <p>Anterior</p>
-                    <h3>Segunda-feira 24/02/2025</h3>
-                    <p>Próximo</p>
-                </div>
+                <SeletorDeDias />
             </caption>
             <thead>
                 <tr>

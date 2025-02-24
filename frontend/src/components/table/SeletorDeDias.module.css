@@ -1,0 +1,15 @@
+.day_selector {
+    display: flex;
+    justify-content: center;
+    gap: 5em;
+}
+
+.day_selector p {
+    font-size: medium;
+    padding: 5px;
+}
+
+.day_selector p:hover {
+    cursor: pointer;
+    background-color: #d1d1d1;
+}
