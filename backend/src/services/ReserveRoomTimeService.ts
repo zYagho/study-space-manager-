@@ -141,6 +141,12 @@ class ReserveRoomTimeService{
                             }
                         }
                     }
+                },
+                time:{
+                    select:{
+                        horaInicio:true,
+                        horaFim:true
+                    }
                 }
             }
         })
