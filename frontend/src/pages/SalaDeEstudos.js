@@ -25,6 +25,9 @@ function SalaDeEstudos() {
         { dateDay: 24, roomIndex: 1, hourIndex: 5},
         { dateDay: 24, roomIndex: 1, hourIndex: 6},
         { dateDay: 24, roomIndex: 1, hourIndex: 7},
+        { dateDay: 25, roomIndex: 3, hourIndex: 5},
+        { dateDay: 25, roomIndex: 3, hourIndex: 6},
+        { dateDay: 25, roomIndex: 3, hourIndex: 7},
     ] 
 
     // verificar se existe um token logado

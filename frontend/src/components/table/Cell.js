@@ -1,24 +1,22 @@
-import PropTypes from 'prop-types'
-
 import styles from './Cell.module.css'
 
-function Cell({ hours, roomIndex, reservas }) {
-
-    function onCellClick(hour) {
-        alert(`Sala ${roomIndex} e horário ${hour.horaInicio} - ${hour.horaFim}`)
-    }
+function Cell({ hours, roomIndex, reservas, currentDateDay }) {
 
     let reserva = null
+
     const getReserva = (hourIndex) => {
-        // TODO verificar data
-        reserva = reservas.find((res) => res.roomIndex == roomIndex && res.hourIndex == hourIndex)
+        reserva = reservas.find((res) => res.roomIndex === roomIndex && res.hourIndex === hourIndex && res.dateDay === currentDateDay)
         return reserva
+    }
+
+    function onSelectCell(hour) {
+        alert(`Sala ${roomIndex} e horário ${hour.horaInicio} - ${hour.horaFim}`)
     }
 
     return (
         <>
             {hours.map((hour, index) => (
-                <td key={hour.id} className={styles.cell} onClick={() => onCellClick(hour)}>
+                <td key={hour.id} className={styles.cell} onClick={() => onSelectCell(hour)}>
                     {getReserva(index) && (
                         <>Reservado</>
                     )}
@@ -26,10 +24,6 @@ function Cell({ hours, roomIndex, reservas }) {
             ))}
         </>
     )
-}
-
-Cell.propTypes = {
-    horas: PropTypes.array
 }
 
 export default Cell
