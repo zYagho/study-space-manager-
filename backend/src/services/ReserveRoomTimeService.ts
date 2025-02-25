@@ -204,8 +204,7 @@ class ReserveRoomTimeService{
                         id:true,
                         number:true
                     }
-                }
-                ,
+                },
                 status:true
             }
         })

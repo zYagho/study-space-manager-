@@ -1,0 +1,28 @@
+.cell {
+    text-align: center;
+}
+.cell:hover {
+    cursor: pointer;
+}
+
+.LIVRE {
+    background-color: white;
+}
+.LIVRE:hover {
+    background-color: #d1d1d1;
+}
+
+.RESERVADO {
+    background-color: #d1d1d1;
+}
+.RESERVADO:hover {
+    background-color: #aaaaaa;
+}
+
+.SUA_RESERVA {
+    background-color: #ffce6d;
+}
+.SUA_RESERVA:hover {
+    background-color: #ffbb33;
+}
+

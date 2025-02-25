@@ -1,0 +1,11 @@
+.sala_de_estudos {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sala_de_estudos h2 {
+    margin-top: 1em;
+    padding: 1.5em;
+}

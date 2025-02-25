@@ -1,0 +1,47 @@
+.table {
+    border-collapse: collapse;
+    border: 2px solid rgb(140 140 140);
+    font-size: 0.8rem;
+    letter-spacing: 0;
+}
+
+.table caption {
+    caption-side: top;
+    padding: 2em;
+}
+
+.table thead {
+    background-color: #ffbb33;
+}
+
+.table th, td {
+  border: 1px solid rgb(160 160 160);
+  padding: 8px 5px;
+}
+
+.table td:last-of-type {
+    text-align: center;
+}
+
+/* Coluna header das salas */
+.salas_row {
+    background-color: #f1f1f1;
+}
+/* animação feita por DeepSeek */
+.salas_row_loading::after {
+    content: '...';
+    display: inline-block;
+    width: 0;
+    overflow: hidden;
+    vertical-align: bottom;
+    animation: dots 1.5s steps(3, end) infinite;
+}
+
+@keyframes dots {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 1em; /* Ajuste conforme necessário para o tamanho da fonte */
+    }
+}
