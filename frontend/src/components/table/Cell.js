@@ -38,9 +38,17 @@ function Cell({ customKey, room, hour, reservas, userEmail, handleSetSelectedRes
         }
 
         // checar dia atual
+        const today = new Date()
+        if (currentDateDay < today.getDate()) {
+            alert('Não há como reservar salas no passado')
+            return
+        }
 
         // checar hora atual
-
+        if (Number(String(hour.horaFim).split(':', 1)) < today.getHours()) {
+            alert('Tarde demais para reservar neste horário')
+            return
+        }
 
         handleSetSelectedReserve({ room, hour, currentDateDay })
         setSelected(true)
