@@ -1,26 +1,32 @@
+import { useEffect, useState } from 'react'
 import styles from './ResumoDeReserva.module.css'
 import SalasDoUsuario from './SalasDoUsuario'
 
-function ResumoDeReserva() {
+function ResumoDeReserva({ hasSelectedReserve, handleMakeReservation, handleSetError, error, handleSetSelectedReserve }) {
 
-    const isSelect = false
+    function cancelar() {
+        if (error)
+            handleSetError()
+        handleSetSelectedReserve()
+    }
 
     return (
         <div className={styles.resumo}>
-            {isSelect ? (
-                <SalasDoUsuario
-                title='Resumo'
-                dateDay='segunda 24/02/2025'
-                room='Sala 3'
-                hour='10:00 - 11:00'
-                />
+            {hasSelectedReserve ? (
+                <>
+                    <SalasDoUsuario
+                    room={`Sala ${hasSelectedReserve.room.number}`}
+                    hour={`${hasSelectedReserve.hour.horaInicio} - ${hasSelectedReserve.hour.horaFim}`}
+                    />
+                    <p className={styles.error}>{error}</p>
+                    <div className={styles.buttons}>
+                        <button className={styles.btn_cancelar} onClick={cancelar}>Cancelar</button>
+                        <button className={styles.btn_reservar} onClick={handleMakeReservation}>Reservar</button>
+                    </div>
+                </>
             ):(
                 <p>Selecione os horários de uma sala para reservar</p>
             )}
-            <div className={styles.buttons}>
-                <button className={styles.btn_cancelar}>Cancelar</button>
-                <button className={styles.btn_reservar}>Reservar</button>
-            </div>
         </div>
     )
 }

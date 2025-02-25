@@ -1,43 +1,79 @@
+import { useEffect, useRef, useState } from 'react'
 import styles from './Cell.module.css'
 
-import { useState } from 'react'
+function Cell({ customKey, room, hour, reservas, userEmail, handleSetSelectedReserve, currentDate }) {
 
-function Cell({ hours, roomNumber, reservas, userEmail }) {
-
+    const [selected, setSelected] = useState()
+    const cellRef = useRef(null)
     let status = 'LIVRE'
 
-    const getReserva = (hour) => {
-        const reserva = reservas.find((res) => res.room.number === roomNumber && res.time.horaInicio === hour.horaInicio)
+    let reserva = reservas.find((res) => res.room.id === room.id && res.time.horaInicio === hour.horaInicio)
 
-        if (reserva) {
-            if (reserva.reserve.user.email === userEmail)
-                status = 'SUA_RESERVA'
-            else
-                status = 'RESERVADO'
-        } else {
+    if (reserva) {
+        if (!reserva.status) {
             status = 'LIVRE'
+            reserva = null
         }
 
-        return reserva
+        if (reserva.reserve.user.email === userEmail)
+            status = 'SUA_RESERVA'
+        else
+            status = 'RESERVADO'
+    } else {
+        status = 'LIVRE'
     }
 
-    function onSelectCell(hour) {
-        alert(`Sala ${roomNumber} e horário ${hour.horaInicio} - ${hour.horaFim}`)
+    function onSelect() {
+
+        // checar se status está livre
+        if (status !== 'LIVRE') {
+            if (status === 'SUA_RESERVA') {
+                alert('Esta sala e horário já foi reservado por você!')
+                return
+            } else if (status === 'RESERVADO'){
+                alert('Esta sala e horário já foi reservado por outra pessoa')
+                return
+            }
+            alert('Esta sala e horário estão bugados')
+        }
+
+        // checar dia atual
+        const today = new Date()
+        if (currentDate.getDate() < today.getDate()) {
+            alert('Não há como reservar salas no passado')
+            return
+        }
+
+        // checar hora atual
+        if (Number(String(hour.horaFim).split(':', 1)) < today.getHours()) {
+            alert('Tarde demais para reservar neste horário')
+            return
+        }
+
+        handleSetSelectedReserve({ room, hour, currentDate })
+        setSelected(true)
     }
+
+    // Criado pelo Gemini - Descolorir a célula ao clicar fora dela
+    useEffect(() => {
+        function handleClickOutside(event) {
+            if (cellRef.current && !cellRef.current.contains(event.target)) {
+                setSelected(false);
+            }
+        }
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [cellRef]);
 
     return (
-        <>
-            {hours.map((hour) => {
-                    const reserva = getReserva(hour)
-                    return (
-                            <td key={hour.id} className={`${styles.cell} ${styles[status]}`} onClick={() => onSelectCell(hour)}>
-                                {reserva && (
-                                    <>{String(reserva.reserve.user.name).split(' ', 1)}</>
-                                )}
-                            </td>
-                    )
-            })}
-        </>
+        <td ref={cellRef} key={customKey} className={`${styles.cell} ${selected ? styles.SELECTED : styles[status]}`} onClick={onSelect}>
+            {reserva && (
+                <>{String(reserva.reserve.user.name).split(' ', 1)}</>
+            )}
+        </td>
     )
 }
 

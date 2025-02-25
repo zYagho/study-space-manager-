@@ -1,6 +1,14 @@
 .resumo {   
     margin-top: 3em;
     margin-bottom: 10em;
+    width: 25em;
+    min-width: 25em;
+}
+
+.error {
+    padding: 1em;
+    color: red;
+    text-align: center;
 }
 
 .buttons {
@@ -11,7 +19,7 @@
 
 .buttons button {
     border: none;
-    padding: 1em 5.5em;
+    padding: 1em 3em;
     font-weight: bold;
 }
 

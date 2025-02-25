@@ -1,14 +1,16 @@
 import styles from './Table.module.css'
 
-import Cell from './Cell'
-import SeletorDeDias from './SeletorDeDias'
-
 import { useState, useEffect } from 'react'
 
-function Table({ hours, rooms, isLoadingRooms }) {
+import SeletorDeDias from './SeletorDeDias'
+import Cell from './Cell'
+
+
+function Table({ hours, rooms, isLoadingRooms, handleSetSelectedReserve }) {
 
     const [userEmail, setUserEmail] = useState('')
-    
+    const [reservas, setReservas] = useState([])
+
     // Define o dia
     const weekDays = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado']
     const [currentDate, setCurrentDate] = useState(new Date())
@@ -25,8 +27,7 @@ function Table({ hours, rooms, isLoadingRooms }) {
     }
 
     // Lista as reservas
-    const [ reservas, setReservas ] = useState([])
-    let reserveDayFormatted = `${year}-${month}-${day}`
+    let dateFormatToRequestReservas = `${year}-${month}-${day}`
 
     useEffect(() => {
 
@@ -37,7 +38,7 @@ function Table({ hours, rooms, isLoadingRooms }) {
                     headers: {
                         'content-type': 'application/json'
                     },
-                    body: JSON.stringify({ "reserveDay": [reserveDayFormatted]})
+                    body: JSON.stringify({ "reserveDay": [dateFormatToRequestReservas]})
                 })
 
                 if (!response.ok) {
@@ -59,7 +60,7 @@ function Table({ hours, rooms, isLoadingRooms }) {
         if (currentUser)
             setUserEmail(JSON.parse(currentUser).email)
 
-    }, [reserveDayFormatted])
+    }, [dateFormatToRequestReservas])
 
     return (
         <table className={styles.table}>
@@ -81,19 +82,28 @@ function Table({ hours, rooms, isLoadingRooms }) {
             </thead>
             <tbody>
                 {rooms.map((room) => (
-                    <tr key={room.number}>
+                    <tr key={room.id}>
                         <>
                             {!isLoadingRooms ? (
-                                <th className={styles.salas_row} scope='row'>Sala {room.number}</th>
+                                <th key={`${room.id}${room.number}`} className={styles.salas_row} scope='row'>Sala {room.number}</th>
                             ):(
-                                <th className={styles.salas_row_loading}></th>
+                                <th key={`${room.id}${room.number}`} className={styles.salas_row_loading}></th>
                             )}
-                            <Cell
-                            hours={hours}
-                            roomNumber={room.number}
-                            reservas={reservas}
-                            userEmail={userEmail}
-                            />
+                            <>
+                                {hours.map((hour) => {
+                                    return (
+                                        <Cell
+                                        key={`${room.id}${hour.id}`}
+                                        room={room}
+                                        hour={hour}
+                                        reservas={reservas}
+                                        userEmail={userEmail}
+                                        handleSetSelectedReserve={handleSetSelectedReserve}
+                                        currentDate={currentDate}
+                                        />
+                                    )
+                                })}
+                            </>
                         </>
                     </tr>
                 ))}
