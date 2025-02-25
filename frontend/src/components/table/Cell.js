@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import styles from './Cell.module.css'
 
-function Cell({ customKey, room, hour, reservas, userEmail, handleSetSelectedReserve, currentDateDay }) {
+function Cell({ customKey, room, hour, reservas, userEmail, handleSetSelectedReserve, currentDate }) {
 
     const [selected, setSelected] = useState()
     const cellRef = useRef(null)
@@ -39,7 +39,7 @@ function Cell({ customKey, room, hour, reservas, userEmail, handleSetSelectedRes
 
         // checar dia atual
         const today = new Date()
-        if (currentDateDay < today.getDate()) {
+        if (currentDate.getDate() < today.getDate()) {
             alert('Não há como reservar salas no passado')
             return
         }
@@ -50,7 +50,7 @@ function Cell({ customKey, room, hour, reservas, userEmail, handleSetSelectedRes
             return
         }
 
-        handleSetSelectedReserve({ room, hour, currentDateDay })
+        handleSetSelectedReserve({ room, hour, currentDate })
         setSelected(true)
     }
 
@@ -59,7 +59,6 @@ function Cell({ customKey, room, hour, reservas, userEmail, handleSetSelectedRes
         function handleClickOutside(event) {
             if (cellRef.current && !cellRef.current.contains(event.target)) {
                 setSelected(false);
-                handleSetSelectedReserve()
             }
         }
 

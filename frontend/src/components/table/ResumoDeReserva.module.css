@@ -5,6 +5,12 @@
     min-width: 25em;
 }
 
+.error {
+    padding: 1em;
+    color: red;
+    text-align: center;
+}
+
 .buttons {
     display: flex;
     justify-content: space-between;

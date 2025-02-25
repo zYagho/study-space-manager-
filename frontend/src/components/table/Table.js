@@ -99,7 +99,7 @@ function Table({ hours, rooms, isLoadingRooms, handleSetSelectedReserve }) {
                                         reservas={reservas}
                                         userEmail={userEmail}
                                         handleSetSelectedReserve={handleSetSelectedReserve}
-                                        currentDateDay={currentDate.getDate()}
+                                        currentDate={currentDate}
                                         />
                                     )
                                 })}
