@@ -14,6 +14,7 @@ function SalaDeEstudos() {
     const [isLoadingHours, setIsLoadingHours] = useState(true)
     const [rooms, setRooms ] = useState([])
     const [hours, setHours] = useState([])  
+    const [selectedReserve, setSelectedReserve] = useState()
 
     useEffect(() => {
         async function getHours() {
@@ -69,11 +70,19 @@ function SalaDeEstudos() {
 
     }, [])
 
+    if (selectedReserve)
+        console.log(`Reserva selecionad ${selectedReserve.room.number}, ${selectedReserve.hour.horaInicio}, ${selectedReserve.currentDateDay}`)
+
     return (
         <div className={styles.sala_de_estudos}>
             <h2>Sala de estudos disponíveis</h2>
-            <Table hours={hours} rooms={rooms} isLoadingRooms={isLoadingRooms} />
-            <ResumoDeReserva />
+            <Table
+            hours={hours}
+            rooms={rooms}
+            isLoadingRooms={isLoadingRooms}
+            handleSetSelectedReserve={setSelectedReserve}
+            />
+            <ResumoDeReserva hasSelectedReserve={selectedReserve}/>
             {isSidebarOpen && (
                 <Sidebar />
             )}

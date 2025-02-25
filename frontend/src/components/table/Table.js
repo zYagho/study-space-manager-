@@ -6,10 +6,9 @@ import SeletorDeDias from './SeletorDeDias'
 import Cell from './Cell'
 
 
-function Table({ hours, rooms, isLoadingRooms }) {
+function Table({ hours, rooms, isLoadingRooms, handleSetSelectedReserve }) {
 
     const [userEmail, setUserEmail] = useState('')
-    const [selectedReserve, setSelectedReserve] = useState()
     const [reservas, setReservas] = useState([])
 
     // Define o dia
@@ -63,9 +62,6 @@ function Table({ hours, rooms, isLoadingRooms }) {
 
     }, [dateFormatToRequestReservas])
 
-    if (selectedReserve)
-        console.log(`Reserva selecionad ${selectedReserve.room.number}, ${selectedReserve.hour.horaInicio}, ${selectedReserve.currentDateDay}`)
-
     return (
         <table className={styles.table}>
             <caption>
@@ -102,7 +98,7 @@ function Table({ hours, rooms, isLoadingRooms }) {
                                         hour={hour}
                                         reservas={reservas}
                                         userEmail={userEmail}
-                                        handleSetSelectedReserve={setSelectedReserve}
+                                        handleSetSelectedReserve={handleSetSelectedReserve}
                                         currentDateDay={currentDate.getDate()}
                                         />
                                     )

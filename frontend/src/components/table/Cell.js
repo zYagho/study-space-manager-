@@ -57,8 +57,10 @@ function Cell({ customKey, room, hour, reservas, userEmail, handleSetSelectedRes
     // Criado pelo Gemini - Descolorir a célula ao clicar fora dela
     useEffect(() => {
         function handleClickOutside(event) {
-            if (cellRef.current && !cellRef.current.contains(event.target))
+            if (cellRef.current && !cellRef.current.contains(event.target)) {
                 setSelected(false);
+                handleSetSelectedReserve()
+            }
         }
 
         document.addEventListener('mousedown', handleClickOutside);
