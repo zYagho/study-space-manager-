@@ -13,10 +13,7 @@ function SalaDeEstudos() {
     const [isLoadingRooms, setIsLoadingRooms ] = useState(true)
     const [isLoadingHours, setIsLoadingHours] = useState(true)
     const [rooms, setRooms ] = useState([])
-    const [hours, setHours] = useState([])
-
-    // verificar se existe um token logado
-    // verificar se o token ainda é válido    
+    const [hours, setHours] = useState([])  
 
     useEffect(() => {
         async function getHours() {
@@ -74,7 +71,6 @@ function SalaDeEstudos() {
 
     return (
         <div className={styles.sala_de_estudos}>
-            <SalasDoUsuario />
             <h2>Sala de estudos disponíveis</h2>
             <Table hours={hours} rooms={rooms} isLoadingRooms={isLoadingRooms} />
             <ResumoDeReserva />

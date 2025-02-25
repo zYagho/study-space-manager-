@@ -1,8 +1,8 @@
-import styles from './Cell.module.css'
+import styles from './Row.module.css'
 
 import { useState } from 'react'
 
-function Cell({ hours, roomNumber, reservas, userEmail }) {
+function Row({ hours, roomNumber, reservas, userEmail }) {
 
     let status = 'LIVRE'
 
@@ -10,6 +10,12 @@ function Cell({ hours, roomNumber, reservas, userEmail }) {
         const reserva = reservas.find((res) => res.room.number === roomNumber && res.time.horaInicio === hour.horaInicio)
 
         if (reserva) {
+            
+            if (!reserva.status) {
+                status = 'LIVRE'
+                return null
+            }
+
             if (reserva.reserve.user.email === userEmail)
                 status = 'SUA_RESERVA'
             else
@@ -41,4 +47,4 @@ function Cell({ hours, roomNumber, reservas, userEmail }) {
     )
 }
 
-export default Cell
+export default Row

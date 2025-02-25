@@ -1,6 +1,6 @@
 import styles from './Table.module.css'
 
-import Cell from './Cell'
+import Row from './Row'
 import SeletorDeDias from './SeletorDeDias'
 
 import { useState, useEffect } from 'react'
@@ -88,7 +88,7 @@ function Table({ hours, rooms, isLoadingRooms }) {
                             ):(
                                 <th className={styles.salas_row_loading}></th>
                             )}
-                            <Cell
+                            <Row
                             hours={hours}
                             roomNumber={room.number}
                             reservas={reservas}
