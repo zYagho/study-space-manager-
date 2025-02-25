@@ -1,11 +1,23 @@
 import styles from './Cell.module.css'
 
-function Cell({ hours, roomNumber, reservas, currentDateDay }) {
+import { useState } from 'react'
 
-    let reserva = null
+function Cell({ hours, roomNumber, reservas, userEmail }) {
+
+    let status = 'LIVRE'
 
     const getReserva = (hour) => {
-        reserva = reservas.find((res) => res.room.number === roomNumber && res.time.horaInicio === hour.horaInicio)
+        const reserva = reservas.find((res) => res.room.number === roomNumber && res.time.horaInicio === hour.horaInicio)
+
+        if (reserva) {
+            if (reserva.reserve.user.email === userEmail)
+                status = 'SUA_RESERVA'
+            else
+                status = 'RESERVADO'
+        } else {
+            status = 'LIVRE'
+        }
+
         return reserva
     }
 
@@ -15,13 +27,16 @@ function Cell({ hours, roomNumber, reservas, currentDateDay }) {
 
     return (
         <>
-            {hours.map((hour) => (
-                <td key={hour.id} className={styles.cell} onClick={() => onSelectCell(hour)}>
-                    {getReserva(hour) && (
-                        <>{String(reserva.reserve.user.name).split(' ', 1)}</>
-                    )}
-                </td>
-            ))}
+            {hours.map((hour) => {
+                    const reserva = getReserva(hour)
+                    return (
+                            <td key={hour.id} className={`${styles.cell} ${styles[status]}`} onClick={() => onSelectCell(hour)}>
+                                {reserva && (
+                                    <>{String(reserva.reserve.user.name).split(' ', 1)}</>
+                                )}
+                            </td>
+                    )
+            })}
         </>
     )
 }

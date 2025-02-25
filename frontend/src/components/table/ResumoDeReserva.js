@@ -3,7 +3,7 @@ import SalasDoUsuario from './SalasDoUsuario'
 
 function ResumoDeReserva() {
 
-    const isSelect = true
+    const isSelect = false
 
     return (
         <div className={styles.resumo}>

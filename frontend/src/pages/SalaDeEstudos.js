@@ -15,21 +15,6 @@ function SalaDeEstudos() {
     const [rooms, setRooms ] = useState([])
     const [hours, setHours] = useState([])
 
-    // TESTE reservas
-    const reservas = [
-        { dateDay: 24, roomIndex: 0, hourIndex: 0},
-        { dateDay: 24, roomIndex: 0, hourIndex: 1},
-        { dateDay: 24, roomIndex: 0, hourIndex: 2},
-        { dateDay: 24, roomIndex: 0, hourIndex: 3},
-        { dateDay: 24, roomIndex: 0, hourIndex: 4},
-        { dateDay: 24, roomIndex: 1, hourIndex: 5},
-        { dateDay: 24, roomIndex: 1, hourIndex: 6},
-        { dateDay: 24, roomIndex: 1, hourIndex: 7},
-        { dateDay: 25, roomIndex: 3, hourIndex: 5},
-        { dateDay: 25, roomIndex: 3, hourIndex: 6},
-        { dateDay: 25, roomIndex: 3, hourIndex: 7},
-    ] 
-
     // verificar se existe um token logado
     // verificar se o token ainda é válido    
 

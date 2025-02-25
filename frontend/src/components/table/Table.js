@@ -7,6 +7,9 @@ import { useState, useEffect } from 'react'
 
 function Table({ hours, rooms, isLoadingRooms }) {
 
+    const [userEmail, setUserEmail] = useState('')
+    
+    // Define o dia
     const weekDays = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado']
     const [currentDate, setCurrentDate] = useState(new Date())
 
@@ -21,7 +24,7 @@ function Table({ hours, rooms, isLoadingRooms }) {
         setCurrentDate(newDate)
     }
 
-    // Lista as reservas da API
+    // Lista as reservas
     const [ reservas, setReservas ] = useState([])
     let reserveDayFormatted = `${year}-${month}-${day}`
 
@@ -46,11 +49,15 @@ function Table({ hours, rooms, isLoadingRooms }) {
                 setReservas(data)
 
             } catch (err) {
-                console.log(err)
+                console.error(err)
             }
         }
 
         getReservas()
+
+        const currentUser = localStorage.getItem('user_token')
+        if (currentUser)
+            setUserEmail(JSON.parse(currentUser).email)
 
     }, [reserveDayFormatted])
 
@@ -85,6 +92,7 @@ function Table({ hours, rooms, isLoadingRooms }) {
                             hours={hours}
                             roomNumber={room.number}
                             reservas={reservas}
+                            userEmail={userEmail}
                             />
                         </>
                     </tr>
