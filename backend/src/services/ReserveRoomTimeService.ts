@@ -51,11 +51,29 @@ class ReserveRoomTimeService{
             throw new Error("Já existe uma reserva ativa nesse mesmo horário e sala.")
         }
 
+        const emailUser = await prismaClient.reserve.findFirst({
+            where:{
+                id:reserveID
+            },
+            select:{
+                user:{
+                    select:{
+                        email:true
+                    }
+                }
+            }
+        })
+
         //Verifica se o usuário ja tem uma reserva no mesmo horário no mesmo dia.
         const res = await prismaClient.reserveRoomTime.findFirst({
             where:{
                 reserveDay:dataReserva,
-                time_id:timeID
+                time_id:timeID,
+                reserve:{
+                    user:{
+                        email:emailUser.user.email
+                    }
+                },
             }
         })
 
@@ -63,12 +81,12 @@ class ReserveRoomTimeService{
             throw new Error("O usuário já possui uma reserva ativa nesse horário.")
         }
 
-        const dayisvalid = new Date()
-        dayisvalid.setHours(0,0,0,0)
+        // const dayisvalid = new Date()
+        // dayisvalid.setHours(0,0,0,0)
 
-        if(dataReserva < dayisvalid){
-            throw new Error("O usuário não pode fazer uma reserva em dias anteriores ao atual.")
-        }
+        // if(dataReserva < dayisvalid){
+        //     throw new Error("O usuário não pode fazer uma reserva em dias anteriores ao atual.")
+        // }
 
         const reserve = prismaClient.reserveRoomTime.create({
             data:{
