@@ -45,10 +45,6 @@ function Cell({ customKey, room, hour, reservas, userEmail, handleSetSelectedRes
         }
 
         // checar hora atual
-        if (Number(String(hour.horaFim).split(':', 1)) < today.getHours()) {
-            alert('Tarde demais para reservar neste horário')
-            return
-        }
 
         handleSetSelectedReserve({ room, hour, currentDate })
         setSelected(true)

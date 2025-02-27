@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import { SidebarContext } from '../context/SidebarContext'
+import { useNavigate } from 'react-router-dom'
 import Sidebar from '../components/menu/Sidebar'
 
 import styles from './SalaDeEstudos.module.css'
@@ -15,6 +16,7 @@ function SalaDeEstudos() {
     const [selectedReserve, setSelectedReserve] = useState()
     const [user, setUser] = useState()
     const [error, setError] = useState()
+    const navigate = useNavigate()
 
     useEffect(() => {
 
@@ -75,6 +77,11 @@ function SalaDeEstudos() {
 
     // GAMBIARRAS DAS BRAVA ABAIXO!!!
     async function makeReservation() {
+
+        if (!user) {
+            alert('Faça login para reservar uma sala')
+            navigate('/login')
+        }
 
         // gambiarra da API do Yagho
         try {
