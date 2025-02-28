@@ -28,7 +28,7 @@ function Cell({ customKey, room, hour, reservas, userEmail, handleSetSelectedRes
         // checar se status está livre
         if (status !== 'LIVRE') {
             if (status === 'SUA_RESERVA') {
-                alert('Esta sala e horário já foi reservado por você!')
+                handleSetSelectedReserve({ room, hour, currentDate, reserva })
                 return
             } else if (status === 'RESERVADO'){
                 alert('Esta sala e horário já foi reservado por outra pessoa')
@@ -46,7 +46,7 @@ function Cell({ customKey, room, hour, reservas, userEmail, handleSetSelectedRes
 
         // checar hora atual
 
-        handleSetSelectedReserve({ room, hour, currentDate })
+        handleSetSelectedReserve({ room, hour, currentDate, reserva: null })
         setSelected(true)
     }
 

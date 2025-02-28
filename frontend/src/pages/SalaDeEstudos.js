@@ -141,8 +141,34 @@ function SalaDeEstudos() {
         }
     }
 
-    if (selectedReserve)
-        console.log(`Reserva selecionada ${selectedReserve.room.number}, ${selectedReserve.hour.horaInicio}, ${selectedReserve.currentDateDay}`)
+    function cancelReservation() {
+
+        if (error)
+            setError()
+        
+        if (selectedReserve.reserva) {
+            console.log('Sua reserva: ', selectedReserve.reserva.id)
+            const { validate } = require('uuid')
+            console.log('ID válido? ', validate(selectedReserve.reserva.id))
+
+            fetch(`http://localhost:3333/reserveroomtime/${selectedReserve.reserva.id}`, {
+                method: 'PUT',
+                headers: {
+                    'content-type': 'application/json',
+                    'authorization': `bearer ${user.token}`
+                }
+            })
+            .then(resp => resp.json)
+            .then(data => console.log('reserva cancelada: ', data))
+            .catch(err => console.log('Error: ', err.message))
+        }
+
+        setSelectedReserve()
+    }
+
+    if (selectedReserve) {
+        console.log(`Reserva selecionada ${selectedReserve.room.number}, ${selectedReserve.hour.horaInicio}, ${selectedReserve.currentDate.getDate()}`)
+    }
 
     return (
         <div className={styles.sala_de_estudos}>
@@ -156,9 +182,8 @@ function SalaDeEstudos() {
             <ResumoDeReserva
             hasSelectedReserve={selectedReserve}
             handleMakeReservation={makeReservation}
-            handleSetError={setError}
+            handleCancelReservation={cancelReservation}
             error={error}
-            handleSetSelectedReserve={setSelectedReserve}
             />
             {isSidebarOpen && (
                 <Sidebar />
