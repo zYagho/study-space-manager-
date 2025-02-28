@@ -1,13 +1,7 @@
 import styles from './ResumoDeReserva.module.css'
 import SalasDoUsuario from './SalasDoUsuario'
 
-function ResumoDeReserva({ hasSelectedReserve, handleMakeReservation, handleSetError, error, handleSetSelectedReserve }) {
-
-    function cancelar() {
-        if (error)
-            handleSetError()
-        handleSetSelectedReserve()
-    }
+function ResumoDeReserva({ hasSelectedReserve, handleMakeReservation, error, handleCancelReservation }) {
 
     return (
         <div className={styles.resumo}>
@@ -19,7 +13,7 @@ function ResumoDeReserva({ hasSelectedReserve, handleMakeReservation, handleSetE
                     />
                     <p className={styles.error}>{error}</p>
                     <div className={styles.buttons}>
-                        <button className={styles.btn_cancelar} onClick={cancelar}>Cancelar</button>
+                        <button className={styles.btn_cancelar} onClick={handleCancelReservation}>Cancelar</button>
                         <button className={styles.btn_reservar} onClick={handleMakeReservation}>Reservar</button>
                     </div>
                 </>

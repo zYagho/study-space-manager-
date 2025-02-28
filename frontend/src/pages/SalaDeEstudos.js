@@ -75,7 +75,7 @@ function SalaDeEstudos() {
 
     }, [])
 
-    // GAMBIARRAS DAS BRAVA ABAIXO!!!
+    // ALERTA DE GAMBIARRAS
     async function makeReservation() {
 
         if (!user) {
@@ -141,8 +141,34 @@ function SalaDeEstudos() {
         }
     }
 
-    if (selectedReserve)
-        console.log(`Reserva selecionada ${selectedReserve.room.number}, ${selectedReserve.hour.horaInicio}, ${selectedReserve.currentDateDay}`)
+    function cancelReservation() {
+
+        if (error)
+            setError()
+        
+        if (selectedReserve.reserva) {
+
+            const reserveId = { id: selectedReserve.reserva.id }
+
+            fetch(`http://localhost:3333/reserveroomtime`, {
+                method: 'PUT',
+                headers: {
+                    'content-type': 'application/json',
+                    'authorization': `bearer ${user.token}`
+                },
+                body: JSON.stringify(reserveId)
+            })
+            .then(resp => resp.json)
+            .then((data) => {
+                alert('Reserva cancelada!')
+                window.location.reload()
+                return
+            })
+            .catch(err => console.log('Error: ', err.message))
+        }
+
+        setSelectedReserve()
+    }
 
     return (
         <div className={styles.sala_de_estudos}>
@@ -156,9 +182,8 @@ function SalaDeEstudos() {
             <ResumoDeReserva
             hasSelectedReserve={selectedReserve}
             handleMakeReservation={makeReservation}
-            handleSetError={setError}
+            handleCancelReservation={cancelReservation}
             error={error}
-            handleSetSelectedReserve={setSelectedReserve}
             />
             {isSidebarOpen && (
                 <Sidebar />

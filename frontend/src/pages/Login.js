@@ -41,6 +41,7 @@ function Login() {
             const data = await response.json();
             localStorage.setItem('user_token', JSON.stringify(data)) // salva o token
 
+            console.log(data)
             alert(`Usuário ${data.name} logado com sucesso!`)
             navigate('/')
       
