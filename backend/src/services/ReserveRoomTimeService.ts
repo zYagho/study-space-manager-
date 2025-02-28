@@ -132,8 +132,6 @@ class ReserveRoomTimeService{
     }
 
     async cancel({id}:ReserveRequest){
-        console.log('ID recebido: ', id)
-
         if(!id){
             throw new Error("O ID da reserve é obrigatório.")
         }

@@ -53,7 +53,7 @@ router.get('/reserve/user', isAuthenticated, reserveController.listReserveUser.b
 const reserveRoomTimeController = new ReserveRoomTimeController();
 router.post('/reserveroomtime', isAuthenticated, reserveRoomTimeController.create.bind(reserveRoomTimeController))
 router.get('/reserveroomtime/detail', isAuthenticated, reserveRoomTimeController.detail.bind(reserveRoomTimeController))
-router.put('/reserveroomtime/:id', isAuthenticated, reserveRoomTimeController.cancel.bind(reserveRoomTimeController))
+router.put('/reserveroomtime', isAuthenticated, reserveRoomTimeController.cancel.bind(reserveRoomTimeController))
 router.post('/reserveroomtimes', reserveRoomTimeController.list.bind(reserveRoomTimeController))
 
 

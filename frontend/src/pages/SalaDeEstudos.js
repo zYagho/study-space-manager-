@@ -75,7 +75,7 @@ function SalaDeEstudos() {
 
     }, [])
 
-    // GAMBIARRAS DAS BRAVA ABAIXO!!!
+    // ALERTA DE GAMBIARRAS
     async function makeReservation() {
 
         if (!user) {
@@ -147,27 +147,27 @@ function SalaDeEstudos() {
             setError()
         
         if (selectedReserve.reserva) {
-            console.log('Sua reserva: ', selectedReserve.reserva.id)
-            const { validate } = require('uuid')
-            console.log('ID válido? ', validate(selectedReserve.reserva.id))
 
-            fetch(`http://localhost:3333/reserveroomtime/${selectedReserve.reserva.id}`, {
+            const reserveId = { id: selectedReserve.reserva.id }
+
+            fetch(`http://localhost:3333/reserveroomtime`, {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json',
                     'authorization': `bearer ${user.token}`
-                }
+                },
+                body: JSON.stringify(reserveId)
             })
             .then(resp => resp.json)
-            .then(data => console.log('reserva cancelada: ', data))
+            .then((data) => {
+                alert('Reserva cancelada!')
+                window.location.reload()
+                return
+            })
             .catch(err => console.log('Error: ', err.message))
         }
 
         setSelectedReserve()
-    }
-
-    if (selectedReserve) {
-        console.log(`Reserva selecionada ${selectedReserve.room.number}, ${selectedReserve.hour.horaInicio}, ${selectedReserve.currentDate.getDate()}`)
     }
 
     return (
